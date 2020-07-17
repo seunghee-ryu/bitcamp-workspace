@@ -13,7 +13,7 @@ public class Exam0300 {
     }
 
     @Override // 기존 기능을 재정의하는 것이 맞는지 검사하라는 명령
-    public String toString() {
+    public String toStrong() {
         return "test";
     }
 
