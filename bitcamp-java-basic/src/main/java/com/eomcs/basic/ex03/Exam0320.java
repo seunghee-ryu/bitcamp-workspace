@@ -17,7 +17,19 @@ class Exam0320 // 클래스 선언(class declaration)
         System.out.println(3.14F); 
         System.out.println(3.14f);
 
-        
 
     }    
 }
+
+
+//## 정리
+//4바이트 부동소수점
+//  3.14F
+//  3.14f (주로 사용)
+//  31.4e-1f
+//  31.4e-1F
+//  
+//8바이트 부동소수점
+//  3.14
+//  31.4e-1
+//

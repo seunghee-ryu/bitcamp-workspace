@@ -1,3 +1,4 @@
+
 package com.eomcs.basic.ex03;
 
 // 정수 리터럴(literal) - 정수를 메모리에 저장하는 방법
@@ -9,7 +10,7 @@ public class Exam0250 {
     System.out.println(23); 
 
     // -23
-    // 1)Sign-magnitude : 맨 앞비트로 음수 표시(정수는 안 쓰고 부동소수점에서 사용)
+    // 1)Sign-magnitude : 맨 앞비트로 음수 표시
     // => 1000 0000 0000 0000 0000 0000 0001 0111 (-23)
     // => 23 + (-23) = 0
     // => 정말?
