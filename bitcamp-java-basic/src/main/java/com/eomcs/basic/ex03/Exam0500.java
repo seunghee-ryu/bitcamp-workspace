@@ -17,7 +17,9 @@ public class Exam0500 {
 
     //논리 연산의 결과는 논리값이다.
     System.out.println(true && false);
+    // 두 항이 모두 참인 경우에만 결과값이 참 그렇지 않은 경우에는 거짓
     System.out.println(true || false);
+    // 두 항 중 하나만 참이면 결과값은 참. 그렇지 않은 경우에는 거짓
     
     // 작은 따옴표가 알려준 유니코드 값 비교하기
     System.out.println(65 == 'A');
