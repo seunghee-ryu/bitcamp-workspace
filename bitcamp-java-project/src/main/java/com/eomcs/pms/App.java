@@ -66,18 +66,18 @@ public class App {
     }
     KeyInput.close();
     System.out.println("------------------------");
-    
-    for (int i = 0; i< count; i++) {
-    
-    System.out.printf("%d, %s, %s, %s, %s\n", 
-        no[i], name[i], email[i], tel[i], now[i].toString());
-    
-    {
-     
-          
-        }
+
+    for (int i = 0; i < count; i++) {
+
+      System.out.printf("%d, %s, %s, %s, %s\n", no[i], name[i], email[i], tel[i],
+          now[i].toString());
+
+      {
+
+
       }
-    
+    }
+
   }
 }
 
