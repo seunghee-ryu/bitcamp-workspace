@@ -3,30 +3,46 @@ package com.eomcs.pms;
 public class App2 {
 
   public static void main(String[] args) {
+    java.util.Scanner KeyInput = new java.util.Scanner(System.in);
+    
     System.out.print("[");
     System.out.print("프로젝트");
     System.out.println("]");
 
-    System.out.print("번호: ");
-    System.out.println(1201);
-
+    System.out.print("번호? ");
+    int no = KeyInput.nextInt();
+    KeyInput.nextLine();
+    
     System.out.print("프로젝트명: ");
-    System.out.println("미니 프로젝트 관리 시스템 개발");
+    String title = KeyInput.nextLine();
 
     System.out.print("내용: ");
-    System.out.println("소규모 팀을 위한 프로젝트 관리 시스템을 개발한다.");
+    String content = KeyInput.nextLine();
 
-    System.out.println("시작일: " + "2020-01-01");
+    System.out.print("시작일? ");
+    java.util.Date startDate = java.sql.Date.valueOf(KeyInput.nextLine());
 
-    System.out.println("종료일: " + "2020-12-31");
+    System.out.print("종료일? ");
+    java.util.Date endDate = java.sql.Date.valueOf(KeyInput.nextLine());
 
-    System.out.println("만든이: " + "홍길동");
+    System.out.print("만든이? ");
+    String owner = KeyInput.nextLine();
     
-    System.out.println("팀원: "
-        + "홍길동" + ","
-        + "김구" + ","
-        + "유관순" + ","
-        + "안중근" + ","
-        + "윤봉길");
+    System.out.print("팀원? ");
+    String members = KeyInput.nextLine();
+    
+    KeyInput.close();
+    
+    System.out.println("------------------------");
+    
+    System.out.printf("번호: %d\n", no);
+    System.out.printf("프로젝트명: %s\n", title);
+    System.out.printf("내용: %s\n", content);
+    System.out.printf("시작일: %s\n", startDate.toString());
+    System.out.printf("종료일: %s\n", endDate.toString());
+    System.out.printf("만든이: %s\n", owner);
+    System.out.printf("팀원: %s\n", members);
+    
+    
   }
 }
