@@ -24,7 +24,7 @@ public class App_f {
 
     Scanner KeyInput = new Scanner(System.in);
 
-    System.out.println("[회]");
+    System.out.println("[회원]");
     
 
     // 최대 5명의 회원 정보를 입력 받는 변수를 선언

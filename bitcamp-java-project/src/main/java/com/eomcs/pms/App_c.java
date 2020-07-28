@@ -1,6 +1,7 @@
 package com.eomcs.pms;
 
 import java.util.Scanner; // 클래스의 패키지 정보를 미리 선언하여 컴파일러에게 알려준다.
+
 import java.sql.Date;
 
 

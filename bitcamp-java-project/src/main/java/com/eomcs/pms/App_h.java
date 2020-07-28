@@ -1,6 +1,7 @@
 package com.eomcs.pms;
 
 import java.util.Scanner; // 클래스의 패키지 정보를 미리 선언하여 컴파일러에게 알려준다.
+
 import java.sql.Date;
 
 
@@ -69,7 +70,7 @@ public class App_h {
 
     for (int i = 0; i < MAX_LENGTH; i++) {
       count++;
-      Member m =new Member();
+      Member m = new Member();
       // 1번 회원 입력
       System.out.print("번호? ");
       m.no = KeyInput.nextInt(); // 0을 배열 인덱스라고 한다
@@ -116,11 +117,6 @@ public class App_h {
       Member m = members[i];
       System.out.printf("%d, %s, %s, %s, %s\n", 
           m.no, m.name, m.email, m.tel, m.now.toString());
-
-      {
-
-
-      }
 
     }
   }
