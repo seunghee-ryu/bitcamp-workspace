@@ -3,7 +3,7 @@ package com.eomcs.basic.ex05;
 // # 비트 연산자(&, |, ^, ~)
 //
 public class Exam0350 {
-  public static void main(String[] args) {
+  public static void main(String[] args) {    
     int a = 0b0110_1100; // 108
     int b = 0b0101_0101; // 85
 
@@ -131,3 +131,8 @@ public class Exam0350 {
 // = 622_8900 바이트 필요
 // = 6082KB
 // = 5.94MB
+
+
+
+
+
