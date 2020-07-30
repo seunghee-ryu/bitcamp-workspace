@@ -8,9 +8,9 @@ public class Exam0510 {
     // => 조건 ? 표현식1 : 표현식2
     // => 조건이 참이면 표현식1을 실행하고,
     //    조건이 거짓이면 표현식2를 실행한다.
-    int age = 20;
+    int age = 11;
     
-    /* 
+    /*
     (age > 18) ? System.out.println("성인이다.") : 
                      System.out.println("미성년자이다.");  //컴파일 오류!
     */

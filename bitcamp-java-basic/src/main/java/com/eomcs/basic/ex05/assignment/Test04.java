@@ -25,29 +25,28 @@ public class Test04 {
     
     int value = 23459876;
     
-    System.out.println(value % 10);
-    value = value / 10;
+    System.out.println(value % 10); // 6
+    value = value / 10; // 2345987
     
-    System.out.println(value % 10);
-    value = value / 10;
+    System.out.println(value % 10); // 7
+    value = value / 10; // 234598
     
-    System.out.println(value % 10);
-    value = value / 10;
+    System.out.println(value % 10); // 8
+    value = value / 10; // 23459
     
-    System.out.println(value % 10);
-    value = value / 10;
+    System.out.println(value % 10); // 9
+    value = value / 10; // 2345
     
-    System.out.println(value % 10);
-    value = value / 10;
+    System.out.println(value % 10); // 5
+    value = value / 10; // 234
     
-    System.out.println(value % 10);
-    value = value / 10;
+    System.out.println(value % 10); // 4
+    value = value / 10; // 23
     
-    System.out.println(value % 10);
-    value = value / 10;
+    System.out.println(value % 10); // 3
+    value = value / 10; //2 
     
-    System.out.println(value % 10);
-    value = value / 10;
+    System.out.println(value % 10); //2
     
     
     

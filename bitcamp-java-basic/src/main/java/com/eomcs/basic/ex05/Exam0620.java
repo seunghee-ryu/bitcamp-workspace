@@ -5,12 +5,17 @@ package com.eomcs.basic.ex05;
 public class Exam0620 {
   public static void main(String[] args) {
     int i = 7;
+    
+    //증감 연산자가 없다면
+    //기존 변수의 값을 1 감소시키기 위해 다음과 같이 코딩해야 한다.
+    i = i - 1;
+    
+    //증감 연산자를 사용하면 다음과 같이 간략하게 작성할 수 있다.
 
     i--;
     // 현재 위치에 i 메모리에 들어 있는 값을 꺼내 놓는다. 
     // i 메모리의 값을 1 감소시킨다.
 
-    i--;
 
     System.out.println(i); // 5
 
