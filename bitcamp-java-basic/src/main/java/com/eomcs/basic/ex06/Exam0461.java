@@ -13,7 +13,7 @@ public class Exam0461 {
     // for 문에 컬렉션도 적용할 수 있다.
     // for (변수선언 : 컬렉션 객체) 문장;
 
-    for (Object value : list)
+    for (Object value : list) // = for (int i = 0; i <list.size(); i++);
       System.out.println(value);
 
   }

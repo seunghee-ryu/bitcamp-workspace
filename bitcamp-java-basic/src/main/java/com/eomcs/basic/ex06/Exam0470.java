@@ -14,6 +14,7 @@ public class Exam0470 {
     list.add("김구");
 
     //string 이 아닌 값은 넣을 수 없다.
+    // <> 를 사용하여 제네릭으로 변수의 형식을 지정했기 때문에
 
     for (int i = 0; i < list.size(); i++)
       System.out.println(list.get(i));
