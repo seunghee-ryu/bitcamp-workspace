@@ -57,6 +57,21 @@ public class Exam0200 {
     m7("홍길동", new int[] {100, 90});
     m7("홍길동", new int[] {});
 
+
+
+    // 2 + 3 + 7 + 4 = ?
+
+    /*
+    int sum = 0;
+    sum = plus(2, 3);
+    sum = plus(sum, 7);
+    */
+    System.out.println(plus(plus(plus(2, 3), 7), 4));
+
+
+
+
+
     System.out.println("--------------------");
 
     // 파라미터의 갯수가 변할 수 있다 = 가변 파라미터
@@ -165,6 +180,10 @@ public class Exam0200 {
     for (int i = 0; i < scores.length; i++) {
       System.out.printf("%s = %d 점\n", titles[i], scores[i]);
     }
+  }
+
+  static int plus(int a, int b) {
+    return a + b;
   }
 
 
