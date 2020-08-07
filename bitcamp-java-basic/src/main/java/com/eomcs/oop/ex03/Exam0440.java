@@ -11,12 +11,12 @@ public class Exam0440 {
 
     Score() {
       this("이름없음"); // Score(String) 생성자 호출
-      System.out.println("Score()");
+      System.out.println("Score() 호출");
     }
 
     Score(String name) {
       this(name, 0, 0, 0); // Score(String, int, int, int)생성자 호출
-      System.out.println("Score(String)");
+      System.out.println("Score(String) 호출");
       this.name = name;
     }
 
