@@ -32,6 +32,7 @@ public class Exam0320 {
     list.add(s3);
     print(list);
 
+    System.out.println(s2.equals(s4)); // false
     System.out.println(list.indexOf(s4)); // -1
     // indexOf()는 equals()를 사용하여 객체가 같은지 비교한다.
     // Member 클래스는 equals()를 오버라이딩 하지 않았다.

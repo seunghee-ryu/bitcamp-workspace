@@ -53,6 +53,7 @@ public class Exam0330 {
     list.add(s3);
     print(list);
 
+    System.out.println(s2.equals(s4));
     System.out.println(list.indexOf(s4)); // 1
     // Member 클래스는 equals()를 오버라이딩 했다.
     // 따라서 인스턴스가 다르더라도 Member의 name과 age 값이 같다면

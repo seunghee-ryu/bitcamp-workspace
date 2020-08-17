@@ -6,10 +6,12 @@ import java.util.ArrayList;
 public class Exam0120 {
   public static void main(String[] args) {
     ArrayList list = new ArrayList();
-    list.add("aaa"); // aaa,
+    list.add("aaa"); // aaa, //aaa 스트링 인스턴스의 주소가 들어있다.
     list.add("bbb"); // aaa, bbb,
     list.add("ccc"); // aaa, bbb, ccc,
     list.add("ddd"); // aaa, bbb, ccc, ddd,
+
+    // 컬렉션 api가 관리하는 것은 인스턴스의 주소 목록이다.
 
     print(list);
 
@@ -19,8 +21,10 @@ public class Exam0120 {
     list.remove(0); // bbb, ddd,
     print(list);
 
+    // remove 된 것은 주소를 잃어버려서 가비지가 된다.
+
     // 유효한 인덱스가 아니면 예외 발생시킨다!
-    // list.remove(4); // 실행 오류!
+//     list.remove(4); // 실행 오류!
     print(list);
 
     list.add(1, "xxx"); // bbb, xxx, ddd,
@@ -28,11 +32,12 @@ public class Exam0120 {
     list.add(0, "zzz"); // zzz, bbb, yyy, xxx, ddd
     print(list);
 
-    // 삽입할 인덱스가 배열의 크기를 가리킬 경우, 맨 끝에 추가한다.
+//    // 삽입할 인덱스가 배열의 크기를 가리킬 경우, 맨 끝에 추가한다.
     list.add(5, "ttt"); // zzz, bbb, yyy, xxx, ddd, ttt
     print(list);
 
-    list.set(1, "aaa"); // zzz, aaa, yyy, xxx, ddd
+    // 1번 위치의 주소를 바꿔버린다.
+    list.set(1, "aaa"); // zzz, aaa, yyy, xxx, ddd, ttt
     print(list);
 
     list.add("ccc"); // zzz, aaa, yyy, xxx, ddd, ttt, ccc
@@ -47,6 +52,8 @@ public class Exam0120 {
       System.out.print(list.get(i) + ", ");
     }
     System.out.println();
+
+    System.out.println(list.size());
   }
 }
 
