@@ -3,11 +3,11 @@ package com.eomcs.algorithm.data_structure.linkedlist;
 // 01) LinkedList 클래스 정의
 // 02) 값을 담을 노드 클래스를 설계한다.
 // 03) 첫번째 노드와 마지막 노드의 주소를 담을 필드를 추가한다.
-//     목록 크기를 저장할 필드를 추가한다.
+// 목록 크기를 저장할 필드를 추가한다.
 // 04) 목록에 값을 추가하는 add() 메서드를 정의한다.
 // 05) 목록에서 값을 조회하는 get() 메서드를 정의한다.
 // 06) 목록에서 특정 인덱스 위치에 값을 삽입하는 add(int, Object) 메서드를 정의한다.
-//     - Node의 생성자를 추가한다.
+// - Node의 생성자를 추가한다.
 // 07) 목록에서 특정 인덱스의 값을 제거하는 remove(int) 메서드를 정의한다.
 
 
@@ -57,7 +57,7 @@ public class MyLinkedList07 {
   }
 
   public Object get(int index) {
-    if (index <0 || index >= this.size) {
+    if (index < 0 || index >= this.size) {
       throw new IndexOutOfBoundsException("인덱스가 유효하지 않습니다.");
     }
 

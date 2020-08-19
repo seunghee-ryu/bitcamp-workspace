@@ -1,4 +1,4 @@
-package com.eomcs.corelib.ex03;
+package com.eomcs.algorithm.data_structure.array;
 
 //테스트1 - MyArrayListTest
 //1) 인스턴스/객체 (의 주소)를 담을 레퍼런스 배열을 준비한다.
@@ -29,6 +29,10 @@ public class MyArrayList15 {
 
   private Object[] elementData;
   private int size;
+
+  public int size() {
+    return this.size;
+  }
 
   public MyArrayList15() {
     elementData = new Object[5];
@@ -101,9 +105,6 @@ public class MyArrayList15 {
     return old;
   }
 
-  public int size() {
-    return this.size;
-  }
 }
 
 
