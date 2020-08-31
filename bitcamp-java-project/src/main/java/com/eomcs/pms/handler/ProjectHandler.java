@@ -60,7 +60,7 @@ public class ProjectHandler {
 
   public void list() {
     System.out.println("[프로젝트 목록]");
-    Project[] projects = projectList.toArray(Project[].class);
+    Project[] projects = projectList.toArray(new Project[] {});
 
     for (Project project : projects) {
       System.out.printf("%d, %s, %s, %s, %s, [%s]\n",
@@ -71,5 +71,35 @@ public class ProjectHandler {
           project.getOwner(),
           project.getMembers());
     }
+  }
+
+  public void detail() {
+    System.out.println("[프로젝트 상세조회]");
+    int no = Prompt.inputInt("번호? ");
+    Project project = findByNo(no);
+
+    if (project == null) {
+      System.out.println("해당 번호의 프로젝트가 없습니다.");
+    } else {
+      System.out.printf("프로젝트명: %s\n", project.getTitle());
+      System.out.printf("내용: %s\n", project.getContent());
+      System.out.printf("기간: %s ~ %s\n", project.getStartDate(), project.getEndDate());
+      System.out.printf("만든이: %s\n", project.getOwner());
+      System.out.printf("팀원: %s\n", project.getMembers());
+
+    }
+
+
+  }
+
+  public Project findByNo(int no) {
+    for (int i = 0; i < projectList.size(); i++) {
+      Project project = projectList.get(i);
+      if (project.getNo() == no) {
+        return project;
+      }
+    }
+    return null;
+
   }
 }

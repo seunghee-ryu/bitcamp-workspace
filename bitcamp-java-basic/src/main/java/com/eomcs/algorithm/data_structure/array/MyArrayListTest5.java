@@ -14,16 +14,15 @@ public class MyArrayListTest5 {
 
     print(list1);
 
-
     System.out.println("------------------------");
-
   }
 
-  static void print(MyArrayList list) {
+  static void print(MyArrayList<String> list) {
     for (int i = 0; i < list.size(); i++) {
-      String str = (String) list.get(i);
+      String str = list.get(i);
       System.out.print(str + ",");
     }
     System.out.println();
   }
+
 }

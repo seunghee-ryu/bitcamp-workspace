@@ -1,6 +1,5 @@
 package com.eomcs.algorithm.data_structure.array;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 //테스트1 - MyArrayListTest
@@ -36,20 +35,19 @@ import java.util.Arrays;
 //21) toArray()에서 배열을 복사할 때 Arrays.copyOf() 메서드를 활용해보자.
 //22) 제네릭 적용
 //23) 파라미터로 받은 배열에 값을 채워주는 toArray(E[]) 메서드를 추가한다.
-//24) 항목의 개수보다 작은 크기의 배열을 전달할 때, 자동으로 새 배열을 만들도록 toArray(E[])를 변경한다.
-
-public class MyArrayList<E> {
+//24)
+public class MyArrayList22<E> {
   // <E>로 변수를 선언하라
 
   private static final int DEFAULT_CAPACITY = 5;
   private Object[] elementData;
   private int size;
 
-  public MyArrayList() {
+  public MyArrayList22() {
     elementData = new Object[DEFAULT_CAPACITY];
   }
 
-  public MyArrayList(int initialCapacity) {
+  public MyArrayList22(int initialCapacity) {
     if (initialCapacity < DEFAULT_CAPACITY) {
       elementData = new Object[DEFAULT_CAPACITY];
     } else {
@@ -153,21 +151,21 @@ public class MyArrayList<E> {
      */
   }
 
-  @SuppressWarnings("unchecked")
-  public E[] toArray(E[] arr) {
-    if (arr.length < size) {
-      // 새 배열을 만든다.
-      // 배열 항목의 클래스 정보를 알려줘야 한다.
-      arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), this.size);
-    }
-    System.arraycopy(this.elementData,
-        0,
-        arr, //
-        0, // 배열의 목적지
-        this.size); // 최대 size만큼
-
-    return arr;
-  }
+//  @SuppressWarnings("unchecked")
+//  public E[] toArray(E[] arr) {
+//    if (arr.length < size) {
+//      // 새 배열을 만든다.
+//      // 배열 항목의 클래스 정보를 알려줘야 한다.
+//      arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), this.size);
+//    }
+//    System.arraycopy(this.elementData,
+//        0,
+//        arr, //
+//        0, // 배열의 목적지
+//        this.size); // 최대 size만큼
+//
+//    return arr;
+//  }
 }
 
 
