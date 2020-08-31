@@ -1,93 +1,128 @@
-# 16 - UI 코드와 데이터 처리 코드를 분리하기
+# 15 - 캡슐화와 접근 제어 : 세터(setter) / 게터(getter)
 
-객체지향 프로그래밍을 할 때 다음 두 가지를 명심해야 한다.
+이번 훈련에서는 **캡슐화(encapsulation)** 를 다룰 것이다.
 
-- Low Coupling
-- High Cohesion
+기존에 정의한 도메인 클래스에 접근 제어 문법을 적용하여
+인스턴스 필드의 값을 외부에서 직접 접근하지 못하게 막고,
+세터(setter)/게터(getter) 메서드를 통해 값을 조회하고 변경하게 할 것이다.
 
-**관계도 낮추기(Low Coupling)** 란? 한 클래스가 많은 클래스에 의존하는 구조로 작성하면 의존 클래스가 변경될 때 마다 영향을 받기 때문에 유지보수에 좋지 않다.
-그래서, 가능한 의존하는 클래스의 접점을 줄이는 구조로 만드는 것이 좋다.
-(관계도 낮추기 => 의존 클래스의 변경에 둔감 => 코드 변경이 줄어듬)
+**캡슐화** 는,
 
-**응집력 강화(High Cohesion)** 란? 한 클래스가 너무 다양한 역할을 수행하면 클래스의 코드가 커지고 변경 사항이 잦아지기 때문에 유지보수에 좋지 않다.
-그래서, 가능한 한 클래스가 한 개의 역할만 수행하게 만드는 것이 유지보수에 좋다.
-역할을 작게 쪼개게 되면 해당 클래스를 다른 프로젝트에서 재사용하기가 쉽다.
-(응집력 강화 => 클래스를 잘게 쪼갬 => 교체가 용이하고 재사용성 높아짐)
+- 특정 역할을 수행하는 코드를 *클래스* 라는 **캡슐** 에 감추고
+- **메서드** 라는 도구를 통해 해당 코드를 이용하게 하는 기법이다.
+- 이를 통해 **기능 구현에 대한 코드의 상세 내용을 감춤** 으로써 코드의 유지보수가 쉬워지고, 이용하기가 편해진다.
 
-이번 훈련의 목표는 **응집력 강화** 를 연습해보는 것이다.
-기존의 xxxHandler 클래스는 사용자에게 출력하고 사용자의 입력을 받는, 사용자와 소통하는 역할을 수행할 뿐만 아니라 사용자가 입력한 데이터를 관리하는 일도 수행한다.
-이번 훈련에서는 xxxHandler의 역할을 더 작게 쪼개어 전문화 시킬 것이다.
-즉 사용자의 소통을 담당하는 UI 역할과 데이터 처리를 담당하는 DAO(Data Access Object) 역할 클래스로 분리할 것이다.
-이렇게 분리하게 되면 추후 데이터 처리 부분을 다른 클래스로 교체하기 쉬워진다.
-예를 들면 지금은 데이터를 배열에 보관하고 있지만 나중에 파일이나 DBMS에 보관하는 클래스로 교체하기가 쉬워진다.
-또한 지금은 CLI(Command Line Interface) 방식으로 UI를 처리하고 있지만 나중에 웹으로 처리하는 클래스로 교체하기가 쉬워진다. 
+캡슐화 예로 **컴퓨터** 를 들 수 있다.
+
+- 컴퓨터는 CPU, 메인보드, 메모리, 하드디스크 등 복잡한 부품을 케이스에 감춘다.
+- 대신 키보드, 마우스, 모니터를 통해 컴퓨터의 계산 기능을 이용한다.
+- 컴퓨터를 이용하는 사용자 입장에서는 복잡한 구조를 알 필요가 없어서 편하다.
+- 컴퓨터를 만드는 입장에서도 상황에 맞춰 언제든 내부 부품을 바꿀 수 있어 편하다.
+
+일반적으로 클래스는 다음의 구성 요소를 포함한다.
+
+- 데이터를 보관할 **필드(field)** : 인스턴스 필드와 클래스 필드
+- 필드를 다루는 **메서드(method)** : 생성자, 인스턴스 메서드, 클래스 메서드
+
+캡슐화를 수행할 때 핵심은,
+
+- 이들 **구성 요소에 대한 접근을 적절하게 통제하는** 것이다.
+- 즉 **권한이 없는 접근을 차단하여 잘못된 동작을 막는 것** 이다.
+
+접근을 통제하는 일반적인 방법은,
+
+- **필드는 내부에서만 접근** 하도록 제한하고
+- 필드를 다루는 **메서드는 외부에서 호출할 수 있도록 공개** 한다.
+- 단 메서드가 내부에서만 사용된다면 공개하지 않는다.
+
+메서드 중에서 특히 필드의 값을 설정하고 조회하는 메서드를 **세터/게터** 라 부른다.
+
+- **게터(getter)** : 필드 값을 조회하는 메서드. 보통 메서드 이름이 `get` 으로 시작한다.
+  - 예) `getName()` , `getAge()`
+- **세터(setter)** : 필드 값을 설정하는 메서드. 보통 메서드 이름이 `set` 으로 시작한다. 
+  - 예) `setName(String name)` , `setAge(int age)`
+  
+참고적으로 OOA/D(Object-Oriented Analysis/Design)에서는,
+
+- **인스턴스 필드** 를 다루는 **인스턴스 메서드** 를 **연산자(operator)** 라 부른다.
+
+자바에서 접근을 통제하는 문법은 다음과 같다.
+
+- `private` : 클래스 내부
+- (default) : 클래스 내부 + 같은 패키지 소속
+- `protected` : 클래스 내부 + 같은 패키지 소속 + 상속받은 필드를 소유한 서브 클래스
+- `public` : 모든 클래스 
+
 
 ## 훈련 목표
 
-- 캡슐화 기법을 이용하여 데이터 처리 코드를 별개의 클래스로 분리한다.
-- 배열 복제를 통해 배열의 크기를 늘린다.
-- 역할에 따라 클래스를 분리하는 방법과 이점을 이해한다.  
+- 변수를 다루는 연산자의 관점에서 인스턴스 필드와 인스턴스 메서드를 이해한다.
+- 메서드를 활용하여 인스턴스 값을 다루는 연산자를 정의하는 방법을 배운다.
+- 캡슐화의 의미를 이해하고, 셋터/겟터를 만드는 것을 연습한다.
 
-### 훈련 내용
+## 훈련 내용
 
-- xxxHandler 클래스를 UI 처리와 Data 처리 역할자로 분리한다.
+- 게시글, 회원, 프로젝트, 작업 정보를 다루는 도메인 클래스의 인스턴스 필드에 대한 접근을 제한한다.
+- 인스턴스 필드의 값을 설정하고 조회하는 세터/게터를 정의한다.  
+
 
 ## 실습
 
-### 1단계 BoardHandler에서 데이터 처리 코드를 분리하라.
+### 1단계 - Board 인스턴스의 값을 다룰 연산자를 정의한다.
 
-- BoardHandler 에서 데이터 처리 코드를 분리하여 BoardList 클래스로 정의한다.
-  - BoardList의 기본 생성자와 배열의 초기 크기를 설정하는 생성자를 정의한다.
-  - BoardList의 Board 객체를 등록하는 add()를 정의한다.  
-  - BoardList의 데이터 목록을 리턴하는 toArray() 메서드를 정의한다.
-  - BoardHandler는 BoardList를 사용하여 입, 출력 데이터를 처리한다.
+- `Board` 의 인스턴스 필드를 비공개(`private`)로 전환한다. 
+- 대신 인스턴스 필드 값을 설정하고 조회하는 setter/getter 를 추가한다.
+- `BoardHandler` 에서 세터/게터를 통해 인스턴스 필드 값을 다루도록 변경한다.
 
 #### 작업 파일
-- com.eomcs.pms.handler.BoardList 클래스 추가
+
+- com.eomcs.pms.domain.Board 클래스 변경
 - com.eomcs.pms.handler.BoardHandler 클래스 변경
 
-### 2단계 - Board 클래스를 패키지 멤버 클래스로 전환한다.
-- 여러 클래스에서 공유하는 클래스는 중첩 클래스로 정의하기 보다는 패키지 멤버 클래스로 정의하면 관리하기가 더 쉽다.
-- BoardList 클래스에서 Board 클래스를 분리하여 패키지 멤버 클래스로 정의한다.
+
+### 2단계 - Member 인스턴스의 값을 다룰 연산자를 정의한다.
+
+- `Member` 의 인스턴스 필드를 비공개(`private`)로 전환한다. 
+- 대신 인스턴스 필드 값을 설정하고 조회하는 setter/getter 를 추가한다.
+- `MemberHandler` 에서 세터/게터를 통해 인스턴스 필드 값을 다루도록 변경한다.
 
 #### 작업 파일
-- com.eomcs.pms.domain 패키지 생성
-  - Board나 Member처럼 데이터 타입 역할을 하는 클래스를 **도메인** 클래스라 부른다.
-  - 도메인 클래스를 저장할 패키지를 따로 생성한다.
-- com.eomcs.pms.domain.Board 클래스 생성
+
+- com.eomcs.pms.domain.Member 클래스 변경
+- com.eomcs.pms.handler.MemberHandler 클래스 변경
 
 
-- LessonList.java
-    - `LessonHandler`에서 데이터 처리 코드를 이 클래스로 옮긴다.
-- LessonHandler.java
-    - `LessonList` 클래스를 사용하여 데이터를 처리한다.
+### 3단계 - Project 인스턴스의 값을 다룰 연산자를 정의한다.
 
-### 작업2) MemberHandler에서 데이터 처리 코드를 분리하라.
+- `Project` 의 인스턴스 필드를 비공개(`private`)로 전환한다. 
+- 대신 인스턴스 필드 값을 설정하고 조회하는 setter/getter 를 추가한다.
+- `ProjectHandler` 에서 세터/게터를 통해 인스턴스 필드 값을 다루도록 변경한다.
 
-- MemberList.java
-    - `MemberHandler`에서 데이터 처리 코드를 이 클래스로 옮긴다.
-    - 회원 데이터 배열을 리턴하는 toArray() 메서드를 정의한다.
-    - 회원 데이터를 저장하는 add() 메서드를 정의한다.
-    - 기본 생성자와 배열의 초기 크기를 설정하는 생성자를 정의한다.  
-- MemberHandler.java
-    - `MemberList` 클래스를 사용하여 데이터를 처리한다.
+#### 작업 파일
 
-### 작업3) BoardHandler에서 데이터 처리 코드를 분리하라.
-
-- BoardList.java
-    - `BoardHandler`에서 데이터 처리 코드를 이 클래스로 옮긴다.
-    - 게시물 데이터 배열을 리턴하는 toArray() 메서드를 정의한다.
-    - 게시물 데이터를 저장하는 add() 메서드를 정의한다.
-    - 기본 생성자와 배열의 초기 크기를 설정하는 생성자를 정의한다.  
-- BoardHandler.java
-    - `BoardList` 클래스를 사용하여 데이터를 처리한다.
+- com.eomcs.pms.domain.Project 클래스 변경
+- com.eomcs.pms.handler.ProjectHandler 클래스 변경
 
 
-## 실습 소스 및 결과
+### 4단계 - Task 인스턴스의 값을 다룰 연산자를 정의한다.
 
-- src/main/java/com/eomcs/lms/handler/LessonList.java 추가
-- src/main/java/com/eomcs/lms/handler/MemberList.java 추가
-- src/main/java/com/eomcs/lms/handler/BoardList.java 추가
-- src/main/java/com/eomcs/lms/handler/LessonHandler.java 변경
-- src/main/java/com/eomcs/lms/handler/MemberHandler.java 변경
-- src/main/java/com/eomcs/lms/handler/BoardHandler.java 변경
+- `Task` 의 인스턴스 필드를 비공개(`private`)로 전환한다. 
+- 대신 인스턴스 필드 값을 설정하고 조회하는 setter/getter 를 추가한다.
+- `TaskHandler` 에서 세터/게터를 통해 인스턴스 필드 값을 다루도록 변경한다.
+
+#### 작업 파일
+
+- com.eomcs.pms.domain.Task 클래스 변경
+- com.eomcs.pms.handler.TaskHandler 클래스 변경
+
+
+## 실습 결과
+
+- src/main/java/com/eomcs/pms/domain/Board.java 변경
+- src/main/java/com/eomcs/pms/domain/Member.java 변경
+- src/main/java/com/eomcs/pms/domain/Project.java 변경
+- src/main/java/com/eomcs/pms/domain/Task.java 변경
+- src/main/java/com/eomcs/pms/handler/BoardHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/MemberHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/ProjectHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/TaskHandler.java 변경
