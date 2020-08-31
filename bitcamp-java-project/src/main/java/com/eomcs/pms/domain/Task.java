@@ -9,6 +9,7 @@ public class Task {
   private int status;
   private String owner;
 
+
   public int getNo() {
     return no;
   }
@@ -39,6 +40,7 @@ public class Task {
   public void setOwner(String owner) {
     this.owner = owner;
   }
+
 
 
 }

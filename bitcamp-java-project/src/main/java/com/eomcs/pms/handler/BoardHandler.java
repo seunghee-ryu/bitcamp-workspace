@@ -7,8 +7,7 @@ import com.eomcs.util.Prompt;
 
 public class BoardHandler {
 
-  // Board 객체 목록을 저장할 ArrayList 객체를 준비한다.
-  ArrayList<Board> boardList = new ArrayList<>();
+  ArrayList<Board> boardList= new ArrayList<>();
 
   public void add() {
     System.out.println("[게시물 등록]");
@@ -29,8 +28,7 @@ public class BoardHandler {
   public void list() {
     System.out.println("[게시물 목록]");
 
-    Board[] boards = new Board[boardList.size()];
-    boardList.toArray(boards);
+    Board[] boards = boardList.toArray(Board[].class);
 
     for (Board board : boards) {
       System.out.printf("%d, %s, %s, %s, %d\n",
@@ -40,32 +38,5 @@ public class BoardHandler {
           board.getRegisteredDate(),
           board.getViewCount());
     }
-  }
-
-  public void detail () {
-    System.out.println("[게시글 상세조회]");
-    int no = Prompt.inputInt("번호? ");
-    Board board = findByNo(no);
-    if (board == null) {
-      System.out.println("해당 번호의 게시글이 없습니다.");
-    } else {
-      board.setViewCount(board.getViewCount() + 1);
-      System.out.printf("제목: %s\n", board.getTitle());
-      System.out.printf("내용: %s\n", board.getContent());
-      System.out.printf("등록일: %s\n", board.getRegisteredDate());
-      System.out.printf("조회수: %s\n", board.getViewCount());
-    }
-
-
-  }
-
-  private Board findByNo(int no) {
-    for (int i = 0; i < boardList.size(); i++) {
-      Board board = boardList.get(i);
-      if (board.getNo() == no) {
-        return board;
-      }
-    }
-    return null;
   }
 }
