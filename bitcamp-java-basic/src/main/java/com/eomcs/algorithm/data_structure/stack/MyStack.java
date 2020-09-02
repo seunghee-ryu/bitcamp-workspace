@@ -1,29 +1,23 @@
 package com.eomcs.algorithm.data_structure.stack;
 
 import java.util.EmptyStackException;
-
-// 1) stack을 구현하기 위해 기존에 작성한 MyLinkedlist를 상속받는다.
-// 2) stack에 값을 추가하는 push() 메서드를 정의한다.
-// 3) 스택에서 제일 마지막에 추가한 값을 꺼내는 pop() 메서드를 정의한다.
-// 4) stack에서 제일 마지막에 입력한 값을 조회하는 peek()을 정의한다.
-
 import com.eomcs.algorithm.data_structure.linkedlist.MyLinkedList;
 
-public class MyStack extends MyLinkedList implements Cloneable {
+public class MyStack<E> extends MyLinkedList<E> implements Cloneable {
 
-  public Object push(Object item) {
+  public E push(E item) {
     add(item);
     return item;
   }
 
-  public Object pop() {
+  public E pop() {
     if (size() == 0) {
       throw new EmptyStackException();
     }
     return remove(size() - 1);
   }
 
-  public Object peek() {
+  public E peek() {
     if (size() == 0) {
       throw new EmptyStackException();
     }
@@ -34,16 +28,17 @@ public class MyStack extends MyLinkedList implements Cloneable {
     return this.size() == 0;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
-  public MyStack clone() throws CloneNotSupportedException {
+  public MyStack<E> clone() throws CloneNotSupportedException {
     // 새 스택을 만든다.
-    MyStack newStack = new MyStack();
+    MyStack<E> newStack = new MyStack<E>();
 
     // 기존 스택의 값을 가져온다.
     Object[] values = this.toArray();
 
     for (Object value : values) {
-      newStack.push(value);
+      newStack.push((E)value);
     }
     return newStack;
   }

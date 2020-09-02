@@ -1,4 +1,4 @@
-package com.eomcs.algorithm.data_structure.queue;
+package com.eomcs.algorithm.data_structure.Myqueue;
 
 import com.eomcs.algorithm.data_structure.linkedlist.MyLinkedList;
 

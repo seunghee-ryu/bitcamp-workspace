@@ -1,4 +1,4 @@
-package com.eomcs.algorithm.data_structure.queue;
+package com.eomcs.algorithm.data_structure.Myqueue;
 
 public class MyQueueTest {
   public static void main(String[] args) {
