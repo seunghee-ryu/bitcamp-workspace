@@ -9,7 +9,7 @@ import java.util.EmptyStackException;
 
 import com.eomcs.algorithm.data_structure.linkedlist.MyLinkedList;
 
-public class MyStack extends MyLinkedList implements Cloneable {
+public class MyStack05 extends MyLinkedList {
 
   public Object push(Object item) {
     add(item);
@@ -32,20 +32,6 @@ public class MyStack extends MyLinkedList implements Cloneable {
 
   public boolean empty() {
     return this.size() == 0;
-  }
-
-  @Override
-  public MyStack clone() throws CloneNotSupportedException {
-    // 새 스택을 만든다.
-    MyStack newStack = new MyStack();
-
-    // 기존 스택의 값을 가져온다.
-    Object[] values = this.toArray();
-
-    for (Object value : values) {
-      newStack.push(value);
-    }
-    return newStack;
   }
 
 
