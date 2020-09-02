@@ -1,7 +1,5 @@
 package com.eomcs.algorithm.data_structure.linkedlist;
 
-import java.lang.reflect.Array;
-
 // 01) LinkedList 클래스 정의
 // 02) 값을 담을 노드 클래스를 설계한다.
 // 03) 첫번째 노드와 마지막 노드의 주소를 담을 필드를 추가한다.
@@ -15,15 +13,11 @@ import java.lang.reflect.Array;
 // 09) 목록의 데이터를 새 배열에 담아 리턴하는 toArray() 메소드를 정의한다.
 // 10) 인스턴스 필드에 대해 캡슐화를 적용한다.
 //     - 목 크기를 리턴하는 size()를 추가로 정의한다.
-
 // 테스트2: MyLinkedListTest2
 // 11) 제네릭을 적용한다.
 
-//테스트3: MyLinkedListTest3
-// 12) 파라미터로 받은 배열에 값을 채워주는 toArray(E[]) 메서드를 추가한다.
 
-
-public class MyLinkedList<E> {
+public class MyLinkedList11<E> {
 
   // 3) 값을 찾을 때는 첫번째 노드부터 따라간다.
   private Node<E> first;
@@ -167,20 +161,5 @@ public class MyLinkedList<E> {
 
   public int size() {
     return this.size;
-  }
-
-  public E[] toArray(E[] arr) {
-    if (arr.length < this.size) {
-//      Class<?> arrayClassInfo = arr.getClass();
-//      Class<?> arrayItemClassInfo = arrayClassInfo.getComponentType();
-//      arr = (E[]) Array.newInstance(arrayItemClassInfo, this.size());
-      arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), this.size());
-    }
-
-    Object[] originArr = this.toArray();
-    for (int i = 0; i < this.size(); i++) {
-      arr[i] = (E) originArr[i];
-    }
-    return arr;
   }
 }

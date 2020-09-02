@@ -3,7 +3,6 @@ package com.eomcs.pms.domain;
 import java.sql.Date;
 
 public class Project {
-
   private int no;
   private String title;
   private String content;
@@ -11,7 +10,6 @@ public class Project {
   private Date endDate;
   private String owner;
   private String members;
-
 
   public int getNo() {
     return no;
