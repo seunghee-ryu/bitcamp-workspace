@@ -1,9 +1,16 @@
 package com.eomcs.pms;
 
+import com.eomcs.pms.domain.Board;
+import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.domain.Project;
+import com.eomcs.pms.domain.Task;
 import com.eomcs.pms.handler.BoardHandler;
 import com.eomcs.pms.handler.MemberHandler;
 import com.eomcs.pms.handler.ProjectHandler;
 import com.eomcs.pms.handler.TaskHandler;
+import com.eomcs.util.AbstractList;
+import com.eomcs.util.ArrayList;
+import com.eomcs.util.LinkedList;
 import com.eomcs.util.Prompt;
 import com.eomcs.util.Queue;
 import com.eomcs.util.Stack;
@@ -12,16 +19,18 @@ public class App {
 
   public static void main(String[] args) {
 
-    BoardHandler boardHandler = new BoardHandler();
-    BoardHandler boardHandler2 = new BoardHandler();
-    BoardHandler boardHandler3 = new BoardHandler();
-    BoardHandler boardHandler4 = new BoardHandler();
-    BoardHandler boardHandler5 = new BoardHandler();
-    BoardHandler boardHandler6 = new BoardHandler();
+    //AbstractList<Board> boardList = new AbstractList<>();
+    AbstractList<Board> boardList = new ArrayList<>();
+    BoardHandler boardHandler = new BoardHandler(boardList);
 
-    MemberHandler memberHandler = new MemberHandler();
-    ProjectHandler projectHandler = new ProjectHandler(memberHandler);
-    TaskHandler taskHandler = new TaskHandler(memberHandler);
+    AbstractList<Member> memberList = new ArrayList<>();
+    MemberHandler memberHandler = new MemberHandler(memberList);
+
+    AbstractList<Project> projectList = new LinkedList<>();
+    ProjectHandler projectHandler = new ProjectHandler(projectList, memberHandler);
+
+    AbstractList<Task> taskList = new ArrayList<>();
+    TaskHandler taskHandler = new TaskHandler(taskList, memberHandler);
 
     Stack<String> commandList = new Stack<>();
     Queue<String> commandList2 = new Queue<>();
@@ -49,16 +58,6 @@ public class App {
           case "/board/detail": boardHandler.detail(); break;
           case "/board/update": boardHandler.update(); break;
           case "/board/delete": boardHandler.delete(); break;
-          case "/board2/add": boardHandler2.add(); break;
-          case "/board2/list": boardHandler2.list(); break;
-          case "/board3/add": boardHandler3.add(); break;
-          case "/board3/list": boardHandler3.list(); break;
-          case "/board4/add": boardHandler4.add(); break;
-          case "/board4/list": boardHandler4.list(); break;
-          case "/board5/add": boardHandler5.add(); break;
-          case "/board5/list": boardHandler5.list(); break;
-          case "/board6/add": boardHandler6.add(); break;
-          case "/board6/list": boardHandler6.list(); break;
           case "history": printCommandHistory(commandList); break;
           case "history2": printCommandHistory2(commandList2); break;
           case "quit":
@@ -110,8 +109,3 @@ public class App {
     }
   }
 }
-
-
-
-
-
