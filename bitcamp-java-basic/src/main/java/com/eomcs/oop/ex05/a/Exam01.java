@@ -1,3 +1,4 @@
+// 상속 - 사용 전
 package com.eomcs.oop.ex05.a;
 
 public class Exam01 {
@@ -9,6 +10,4 @@ public class Exam01 {
 
     Car c2 = new Car("비트자동차", "소나타", 5);
   }
-
-
 }

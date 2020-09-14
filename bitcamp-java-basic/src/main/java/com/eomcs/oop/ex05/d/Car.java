@@ -1,6 +1,7 @@
 package com.eomcs.oop.ex05.d;
 
 public class Car {
+  
   public String model;
   public String maker;
   public int capacity;
@@ -12,5 +13,6 @@ public class Car {
     this.maker = maker;
     this.capacity = capacity;
   }
-
 }
+
+

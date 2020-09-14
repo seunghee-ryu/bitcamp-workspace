@@ -6,17 +6,13 @@ public class Exam0420 {
     X4 obj = new X4();
     obj.test();
   }
-//  public static void main(String[] args) {
-////    X4 obj = new X4();
-////    obj.test();
-//  }
 }
 
 // this.메서드() 호출?
-// => 현재 클래스부터 호출할 메서드를 찾는다.
+// => 현재 클래스부터 호출할 메서드를 찾아 올라 간다.
 //
 // super.메서드() 호출?
-// => 부모 클래스부터 호출할 메서드를 찾는다.
+// => 부모 클래스부터 호출할 메서드를 찾아 올라 간다.
 
 
 
