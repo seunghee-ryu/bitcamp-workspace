@@ -21,7 +21,15 @@ public class TaskAddCommand implements Command {
     Task task = new Task();
     task.setNo(Prompt.inputInt("번호? "));
     task.setContent(Prompt.inputString("내용? "));
+
+
     task.setDeadline(Prompt.inputDate("마감일? "));
+
+    System.out.println("입력 오류");
+
+
+
+
     task.setStatus(Prompt.inputInt("상태?\n0: 신규\n1: 진행중\n2: 완료\n> "));
 
     while (true) {
