@@ -20,8 +20,6 @@ public class Exam0610 {
         // true를 리턴하면 배열에 포함되고,
         // false를 리턴하면 배열에 포함되지 않는다.
 
-        System.out.printf("> %s/%s\n", dir.getName(), name);
-
         // 파일,디렉토리 이름이 .java 로 끝나는 경우만 리턴 배열에 포함시키다.
         if (name.endsWith(".java"))
           return true; // 조회 결과에 포함시켜라!
@@ -41,7 +39,7 @@ public class Exam0610 {
     for (String name : names) {
       System.out.println(name);
     }
-
+    
     // 문제점:
     // - temp.java 는 디렉토리이다.
     // - 현재의 필터는 파일 이름으로만 검사한다.

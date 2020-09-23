@@ -19,8 +19,6 @@ public class Exam0611 {
         File file = new File(dir, name);
         // 디렉토리 정보와 이름을 합쳐 파일 객체를 생성할 수 있다.
 
-        System.out.printf("> %s/%s\n", dir.getName(), name);
-
         if (file.isFile() && name.endsWith(".java"))
           return true; // 조회 결과에 포함시켜라!
         return false; // 조회 결과에서 제외하라!

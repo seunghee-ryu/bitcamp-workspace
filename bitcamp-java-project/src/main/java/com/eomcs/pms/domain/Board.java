@@ -1,8 +1,11 @@
 package com.eomcs.pms.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Board {
+public class Board implements Serializable {
+  private static final long serialNersionUID = 1L;
+
   private int no;
   private String title;
   private String content;
@@ -45,33 +48,6 @@ public class Board {
   }
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
-  }
-
-  public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%s,%d\n",
-        this.getNo(),
-        this.getTitle(),
-        this.getContent(),
-        this.getWriter(),
-        this.getRegisteredDate().toString(),
-        this.getViewCount());
-  }
-
-  public static Board valueOfCsv(String csv) {
-
-    String[] values = csv.split(",");
-
-    Board board = new Board();
-
-    board.setNo(Integer.parseInt(values[0]));
-    board.setTitle(values[1]);
-    board.setContent(values[2]);
-    board.setWriter(values[3]);
-    board.setRegisteredDate(Date.valueOf(values[4]));
-    board.setViewCount(Integer.parseInt(values[5]));
-
-    return board;
-
   }
 
 

@@ -1,8 +1,11 @@
 package com.eomcs.pms.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Project {
+public class Project implements Serializable {
+  private static final long serialNersionUID = 1L;
+
   private int no;
   private String title;
   private String content;
@@ -52,35 +55,6 @@ public class Project {
   }
   public void setMembers(String members) {
     this.members = members;
-  }
-
-  public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%s,%s,%s\n",
-        this.getNo(),
-        this.getTitle(),
-        this.getContent(),
-        this.getStartDate().toString(),
-        this.getEndDate().toString(),
-        this.getOwner(),
-        this.getMembers());
-
-  }
-
-  public static Project valueOfCsv(String csv) {
-
-    String[] values = csv.split(",");
-
-    Project project = new Project();
-
-    project.setNo(Integer.parseInt(values[0]));
-    project.setTitle(values[1]);
-    project.setContent(values[2]);
-    project.setStartDate(Date.valueOf(values[3]));
-    project.setEndDate(Date.valueOf(values[4]));
-    project.setOwner(values[5]);
-    project.setMembers(values[6]);
-
-    return project;
   }
 
 
