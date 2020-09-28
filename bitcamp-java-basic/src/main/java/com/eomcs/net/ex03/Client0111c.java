@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client0110 {
+public class Client0111c {
   public static void main(String[] args) {
     Scanner keyScan = null;
     Socket socket = null;
