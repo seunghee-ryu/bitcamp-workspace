@@ -16,7 +16,7 @@ public class Client0110 {
     try {
       keyScan = new Scanner(System.in);
       socket = new Socket("localhost", 8888);
-      System.out.println("서버와 연결되었음");
+      System.out.println("서버와 연결되었음!");
 
       // 서버랑 데이터를 주고 받을 수 있도록 입출력 스트림 객체를 준비한다.
       // => 출력 스트림 객체를 준비하기
@@ -24,7 +24,7 @@ public class Client0110 {
 
       // => 입력 스트림 객체를 준비하기
       in = socket.getInputStream();
-      System.out.println("소켓을 통해 입출력 스트림을 준비하였음");
+      System.out.println("소켓을 통해 입출력 스트림을 준비하였음!");
 
       // 서버에 데이터를 보내기 전에 잠깐 멈춤!
       System.out.print(">");
@@ -48,6 +48,7 @@ public class Client0110 {
 
     } catch (Exception e) {
       e.printStackTrace();
+
     } finally {
       try {out.close();} catch (Exception e) {}
       try {in.close();} catch (Exception e) {}

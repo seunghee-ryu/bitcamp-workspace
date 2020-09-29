@@ -49,9 +49,9 @@ import java.util.Scanner;
 
 public class Client0210 {
   public static void main(String[] args) {
-    Scanner keyScan = new Scanner(System.in);
-
     while (true) {
+      Scanner keyScan = new Scanner(System.in);
+
       System.out.print("이름? ");
       String name = keyScan.nextLine();
 
@@ -59,29 +59,56 @@ public class Client0210 {
         break;
       }
 
-      // 요청할 때 마다 서버와 연결한다.
       try (Socket socket = new Socket("localhost", 8888);
           PrintWriter out = new PrintWriter(socket.getOutputStream());
-          BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+          BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
+          ) {
+        System.out.println("서버와 연결되었음");
 
-        System.out.println("서버와 연결되었음!");
-
-        // 한 번 요청한다.
         out.println(name);
         out.flush();
 
-        // 응답 받으면 서버와 연결을 끊는다.
         String str = in.readLine();
         System.out.println(str);
 
-        System.out.println("서버와 연결 끊음!");
-
+        System.out.println("서버와 연결 끊음");
       } catch (Exception e) {
-        e.printStackTrace();
+        e.getStackTrace();
       }
     }
-
-    keyScan.close();
+    //    Scanner keyScan = new Scanner(System.in);
+    //
+    //    while (true) {
+    //      System.out.print("이름? ");
+    //      String name = keyScan.nextLine();
+    //
+    //      if (name.equalsIgnoreCase("quit")) {
+    //        break;
+    //      }
+    //
+    //      // 요청할 때 마다 서버와 연결한다.
+    //      try (Socket socket = new Socket("localhost", 8888);
+    //          PrintWriter out = new PrintWriter(socket.getOutputStream());
+    //          BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+    //
+    //        System.out.println("서버와 연결되었음!");
+    //
+    //        // 한 번 요청한다.
+    //        out.println(name);
+    //        out.flush();
+    //
+    //        // 응답 받으면 서버와 연결을 끊는다.
+    //        String str = in.readLine();
+    //        System.out.println(str);
+    //
+    //        System.out.println("서버와 연결 끊음!");
+    //
+    //      } catch (Exception e) {
+    //        e.printStackTrace();
+    //      }
+    //    }
+    //
+    //    keyScan.close();
   }
 }
 
