@@ -38,7 +38,7 @@ public class HttpServer {
       out.print("HTTP/1.1 200 OK\r\n");
       out.print("Content-Type: text/html; charset=UTF-8\r\n");
       out.print("\r\n");
-      out.print("<html><body><h1>안녕!-강사</h1></body></html>\r\n");
+      out.print("<html><body><h1>프로토콜을 알 수 있으면 웹서버를 만들 수 있다.</h1></body></html>\r\n");
 
       out.close();
       in.close();
