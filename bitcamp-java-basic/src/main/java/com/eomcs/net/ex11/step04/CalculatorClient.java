@@ -16,7 +16,7 @@ public class CalculatorClient {
         PrintStream out = new PrintStream(socket.getOutputStream());
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-      readResponse(in); // 서버의 인사말을 출력
+      readResponse(in); // 서버의 인사말을 읽기
 
       while (true) {
         String input = keyboardScanner.nextLine();

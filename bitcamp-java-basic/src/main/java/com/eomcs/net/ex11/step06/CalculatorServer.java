@@ -1,4 +1,4 @@
-// 계산기 서버 만들기 - 6단계: 클라이언트가 보내온 계산식을 계산하여 리턴한다.
+// 계산기 서버 만들기 - 6단계: 클라이언트가 보내온 계산식을 실행하여 결과를 리턴한다.
 package com.eomcs.net.ex11.step06;
 
 import java.io.BufferedReader;
@@ -22,7 +22,7 @@ public class CalculatorServer {
         while (true) {
           String request = in.readLine();
           String message = compute(request);
-          sendResponse(out, message); // 클라이언트에게 응답한다.
+          sendResponse(out, message); // 클라리언트에게 응답한다.
         }
       }
 
@@ -38,19 +38,16 @@ public class CalculatorServer {
     String op = values[1];
     int b = Integer.parseInt(values[2]);
     int result = 0;
+
     switch (op) {
-      case "+":
-        result = a + b; break;
-      case "-":
-        result = a - b; break;
-      case "*":
-        result = a * b; break;
-      case "/":
-        result = a / b; break;
+      case "+": result = a + b; break;
+      case "-": result = a - b; break;
+      case "*": result = a * b; break;
+      case "/": result = a / b; break;
       default:
-        return String.format("%s를 지원하지 않습니다.", op);
+        return String.format("%s 연산자를 지원하지 않습니다.", op);
     }
-    return String.format("결과는 %d %s %d = %d 입니다.",  a, op, b, result);
+    return String.format("결과는 %d %s %d = %d 입니다.", a, op, b, result);
   }
 
   static void sendResponse(PrintStream out, String message) {
@@ -58,6 +55,7 @@ public class CalculatorServer {
     out.println();
     out.flush();
   }
+
 
   static void sendIntroMessage(PrintStream out) throws Exception {
     out.println("[비트캠프 계산기]");

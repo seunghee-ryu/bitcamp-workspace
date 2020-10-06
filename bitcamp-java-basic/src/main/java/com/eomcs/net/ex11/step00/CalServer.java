@@ -1,5 +1,6 @@
-// 계산기 서버 만들기 - 1단계: 단순히 클라이언트 요청에 응답하기
-package com.eomcs.net.ex11.step01;
+// 계산기 클라이언트 만들기
+
+package com.eomcs.net.ex11.step00;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -7,7 +8,7 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class CalculatorServer {
+public class CalServer {
   public static void main(String[] args) {
 
     try (ServerSocket serverSocket = new ServerSocket(8888)) {

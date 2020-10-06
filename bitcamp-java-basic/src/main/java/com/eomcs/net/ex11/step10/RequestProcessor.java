@@ -1,42 +1,40 @@
-// 계산기 서버 만들기 - 8단계: 예외 처리 추가
-package com.eomcs.net.ex11.step08;
+package com.eomcs.net.ex11.step10;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 
-public class CalculatorServer {
-  public static void main(String[] args) {
+// 역할:
+// - 소켓에 연결된 클라이언트 요청을 처리한다.
+public class RequestProcessor {
+  Socket socket;
 
-    try (ServerSocket serverSocket = new ServerSocket(8888)) {
-      System.out.println("서버 실행 중...");
+  public void setSocket(Socket socket) {
+    this.socket = socket;
+  }
 
-      try (Socket socket = serverSocket.accept();
-          BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-          PrintStream out = new PrintStream(socket.getOutputStream());) {
+  public void service() throws Exception {
+    try (Socket socket = this.socket;
+        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintStream out = new PrintStream(socket.getOutputStream());) {
 
-        sendIntroMessage(out);
+      sendIntroMessage(out);
 
-        while (true) {
-          String request = in.readLine();
-          if (request.equalsIgnoreCase("quit")) {
-            sendResponse(out, "안녕히 가세요!");
-            break;
-          }
-
-          String message = compute(request);
-          sendResponse(out, message); // 클라리언트에게 응답한다.
+      while (true) {
+        String request = in.readLine();
+        if (request.equalsIgnoreCase("quit")) {
+          sendResponse(out, "안녕히 가세요!");
+          break;
         }
-      }
 
-    } catch (Exception e) {
-      e.printStackTrace();
+        String message = compute(request);
+        sendResponse(out, message); // 클라리언트에게 응답한다.
+      }
     }
   }
 
-  static String compute(String request) {
+  private String compute(String request) {
     try {
       String[] values = request.split(" ");
 
@@ -60,14 +58,14 @@ public class CalculatorServer {
     }
   }
 
-  static void sendResponse(PrintStream out, String message) {
+  private void sendResponse(PrintStream out, String message) {
     out.println(message);
     out.println();
     out.flush();
   }
 
 
-  static void sendIntroMessage(PrintStream out) throws Exception {
+  private void sendIntroMessage(PrintStream out) throws Exception {
     out.println("[비트캠프 계산기]");
     out.println("계산기 서버에 오신 걸 환영합니다!");
     out.println("계산식을 입력하세요!");

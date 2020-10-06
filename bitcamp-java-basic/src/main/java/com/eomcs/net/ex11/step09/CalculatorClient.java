@@ -1,5 +1,5 @@
-// 계산기 클라이언트 만들기
-package com.eomcs.net.ex11.step01;
+// 계산기 클라이언트 만들기 - 9단계: 리팩토링 (클라이언트 변경 없음)
+package com.eomcs.net.ex11.step09;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -7,24 +7,24 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class CalClient {
+public class CalculatorClient {
   public static void main(String[] args) {
 
     try (
-        Scanner keyboardScaner = new Scanner(System.in);
+        Scanner keyboardScanner = new Scanner(System.in);
         Socket socket = new Socket("localhost", 8888);
         PrintStream out = new PrintStream(socket.getOutputStream());
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-      receiveResponse(in);
+      receiveResponse(in); // 서버의 인사말을 받기
 
       while (true) {
-        String input = prompt(keyboardScaner);
+        String input = prompt(keyboardScanner);
         if (input == null) {
           continue;
         }
-        sendRequest(out, input);
-        receiveResponse(in);
+        sendRequest(out, input); // 서버에 요청을 보내기
+        receiveResponse(in); // 서버의 실행 결과를 받기
 
         if (input.equalsIgnoreCase("quit")) {
           break;
@@ -33,17 +33,18 @@ public class CalClient {
     } catch (Exception e) {
       e.printStackTrace();
     }
+
   }
 
   static String prompt(Scanner keyboardScanner) {
-    System.out.print("계산식>");
+    System.out.print("계산식> ");
     String input = keyboardScanner.nextLine();
 
     if (input.equalsIgnoreCase("quit")) {
       return input;
 
-    } else if (input.split(" ").length != 3) {
-      System.out.println("입력 형식이 올바르지 않습니다. 예) 23 + 7");
+    } else if (input.split(" ").length != 3) { // 사용자가 입력한 값을 검증
+      System.out.println("입력 형식이 올바르지 않습니다. 예) 23 + 5");
       return null;
     }
 

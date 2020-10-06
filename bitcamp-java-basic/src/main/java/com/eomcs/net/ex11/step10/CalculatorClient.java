@@ -1,5 +1,5 @@
-// 계산기 클라이언트 만들기 - 6단계: 사용자에게 프롬프트를 제시하고 계산식을 입력 받기
-package com.eomcs.net.ex11.step06;
+// 계산기 클라이언트 만들기 - 10단계: 여러 개의 클라이언트 접속 처리 (클라이언트 변경 없음)
+package com.eomcs.net.ex11.step10;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -25,8 +25,11 @@ public class CalculatorClient {
         }
         sendRequest(out, input); // 서버에 요청을 보내기
         receiveResponse(in); // 서버의 실행 결과를 받기
-      }
 
+        if (input.equalsIgnoreCase("quit")) {
+          break;
+        }
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -37,10 +40,14 @@ public class CalculatorClient {
     System.out.print("계산식> ");
     String input = keyboardScanner.nextLine();
 
-    if (input.split(" ").length != 3) { // 사용자가 입력한 값을 검증
+    if (input.equalsIgnoreCase("quit")) {
+      return input;
+
+    } else if (input.split(" ").length != 3) { // 사용자가 입력한 값을 검증
       System.out.println("입력 형식이 올바르지 않습니다. 예) 23 + 5");
       return null;
     }
+
     return input;
   }
 
