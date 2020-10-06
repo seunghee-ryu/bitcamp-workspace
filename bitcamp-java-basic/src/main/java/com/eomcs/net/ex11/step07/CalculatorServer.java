@@ -1,5 +1,5 @@
-// 계산기 서버 만들기 - 6단계: 클라이언트가 보내온 계산식을 계산하여 리턴한다.
-package com.eomcs.net.ex11.step06;
+// 계산기 서버 만들기 - 7단계: 클라이언트의 종료 요청 'quit' 처리
+package com.eomcs.net.ex11.step07;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,8 +21,13 @@ public class CalculatorServer {
 
         while (true) {
           String request = in.readLine();
+          if (request.equalsIgnoreCase("quit")) {
+            sendResponse(out, "안녕히 가세요!");
+            break;
+          }
+
           String message = compute(request);
-          sendResponse(out, message); // 클라이언트에게 응답한다.
+          sendResponse(out, message); // 클라리언트에게 응답한다.
         }
       }
 
@@ -38,19 +43,16 @@ public class CalculatorServer {
     String op = values[1];
     int b = Integer.parseInt(values[2]);
     int result = 0;
+
     switch (op) {
-      case "+":
-        result = a + b; break;
-      case "-":
-        result = a - b; break;
-      case "*":
-        result = a * b; break;
-      case "/":
-        result = a / b; break;
+      case "+": result = a + b; break;
+      case "-": result = a - b; break;
+      case "*": result = a * b; break;
+      case "/": result = a / b; break;
       default:
-        return String.format("%s를 지원하지 않습니다.", op);
+        return String.format("%s 연산자를 지원하지 않습니다.", op);
     }
-    return String.format("결과는 %d %s %d = %d 입니다.",  a, op, b, result);
+    return String.format("결과는 %d %s %d = %d 입니다.", a, op, b, result);
   }
 
   static void sendResponse(PrintStream out, String message) {
@@ -58,6 +60,7 @@ public class CalculatorServer {
     out.println();
     out.flush();
   }
+
 
   static void sendIntroMessage(PrintStream out) throws Exception {
     out.println("[비트캠프 계산기]");

@@ -26,11 +26,9 @@ public class CalculatorClient {
         sendRequest(out, input); // 서버에 요청을 보내기
         receiveResponse(in); // 서버의 실행 결과를 받기
       }
-
     } catch (Exception e) {
       e.printStackTrace();
     }
-
   }
 
   static String prompt(Scanner keyboardScanner) {
@@ -41,7 +39,6 @@ public class CalculatorClient {
       System.out.println("입력 형식이 올바르지 않습니다. 예) 23 + 5");
       return null;
     }
-
     return input;
   }
 
@@ -53,8 +50,7 @@ public class CalculatorClient {
   static void receiveResponse(BufferedReader in) throws Exception {
     while (true) {
       String input = in.readLine();
-      if (input.length() == 0) {
-        // 빈 줄을 읽었다면 읽기를 끝낸다.
+      if (input.length() == 0) { // 빈 줄을 읽었다면 읽기를 끝낸다.
         break;
       }
       System.out.println(input);
