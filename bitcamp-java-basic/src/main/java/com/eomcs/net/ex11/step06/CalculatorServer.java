@@ -1,4 +1,4 @@
-// 계산기 서버 만들기 - 5단계: 코드 리팩토링
+// 계산기 서버 만들기 - 6단계: 클라이언트가 보내온 계산식을 계산하여 리턴한다.
 package com.eomcs.net.ex11.step06;
 
 import java.io.BufferedReader;
@@ -21,7 +21,8 @@ public class CalculatorServer {
 
         while (true) {
           String request = in.readLine();
-          sendResponse(out, request); // 클라이언트에게 응답한다.
+          String message = compute(request);
+          sendResponse(out, message); // 클라이언트에게 응답한다.
         }
       }
 
@@ -29,6 +30,30 @@ public class CalculatorServer {
       e.printStackTrace();
     }
   }
+
+
+  static String compute(String request) {
+    String[] values = request.split(" ");
+
+    int a = Integer.parseInt(values[0]);
+    String op = values[1];
+    int b = Integer.parseInt(values[2]);
+    int result = 0;
+    switch (op) {
+      case "+":
+        result = a + b; break;
+      case "-":
+        result = a - b; break;
+      case "*":
+        result = a * b; break;
+      case "/":
+        result = a / b; break;
+      default:
+        return String.format("%s를 지원하지 않습니다.", op);
+    }
+    return String.format("결과는 %d %s %d = %d 입니다.",  a, op, b, result);
+  }
+
 
   static void sendResponse(PrintStream out, String message) {
     out.println(message);

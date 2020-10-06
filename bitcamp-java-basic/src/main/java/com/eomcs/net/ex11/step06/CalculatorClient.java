@@ -1,4 +1,4 @@
-// 계산기 클라이언트 만들기 - 6단계: 사용자에게
+// 계산기 클라이언트 만들기 - 6단계: 사용자에게 계산식을 입력받는다.
 package com.eomcs.net.ex11.step06;
 
 import java.io.BufferedReader;
@@ -19,7 +19,10 @@ public class CalculatorClient {
       receiveResponse(in); // 서버의 인사말을 받기
 
       while (true) {
-        String input = keyboardScanner.nextLine();
+        String input = prompt(keyboardScanner);
+        if (input == null) {
+          continue; // 검증이 끝났으니 사용자가 다시 입력하도록 한다.
+        }
         sendRequest(out, input); // 서버에 요청을 보내기
         receiveResponse(in); // 서버의 실행 결과를 받기
       }
@@ -28,6 +31,18 @@ public class CalculatorClient {
       e.printStackTrace();
     }
 
+  }
+
+  static String prompt(Scanner keyboardScanner) {
+    System.out.print("계산식>");
+    String input = keyboardScanner.nextLine();
+
+    if (input.split(" ").length != 3) { // 사용자가 입력한 값을 검증
+      System.out.println("입력 형식이 올바르지 않습니다. 예) 23 + 5");
+      return null;
+    }
+
+    return input;
   }
 
   static void sendRequest(PrintStream out, String message) throws Exception {
