@@ -11,7 +11,7 @@ public class Exam0111 {
     t.start();
 
     // 같은 스레드 객체를 또 실행할 수 없다.
-    // t.start(); // 예외 발생!
+    //    t.start(); // 예외 발생!
 
     System.out.println("main() 종료!");
   }
