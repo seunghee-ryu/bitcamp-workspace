@@ -18,6 +18,7 @@ public class Exam0220 {
       }
     }
 
+    // main 스레드의 우선 순위를 가장 작은 1로 설정한다.
     Thread.currentThread().setPriority(1);
 
     MyThread t1 = new MyThread("t1");
