@@ -43,30 +43,30 @@ import com.eomcs.pms.handler.TaskDeleteCommand;
 import com.eomcs.pms.handler.TaskDetailCommand;
 import com.eomcs.pms.handler.TaskListCommand;
 import com.eomcs.pms.handler.TaskUpdateCommand;
-import com.eomcs.util.CsvObject;
 import com.eomcs.util.Prompt;
 import com.google.gson.Gson;
 
 public class App {
 
-  // main(), saveBoards(), loadBoards() 가 공유하는 필드
-  static List<Board> boardList = new ArrayList<>();
-  static File boardFile = new File("./board.json"); // 게시글을 저장할 파일 정보
+  public static void main(String[] args) throws Exception {
+    App app = new App();
+    app.service();
 
-  // main(), saveMembers(), loadMembers() 가 공유하는 필드
-  static List<Member> memberList = new LinkedList<>();
-  static File memberFile = new File("./member.json"); // 회원을 저장할 파일 정보
+  }
 
-  // main(), saveProjects(), loadProjects() 가 공유하는 필드
-  static List<Project> projectList = new LinkedList<>();
-  static File projectFile = new File("./project.json"); // 프로젝트를 저장할 파일 정보
+  private void service() throws Exception {
+    // 스태틱 멤버들이 공유하는 변수가 아니라면 로컬 변수로 만들라.
+    List<Board> boardList = new ArrayList<>();
+    File boardFile = new File("./board.json"); // 게시글을 저장할 파일 정보
 
-  // main(), saveTasks(), loadTasks() 가 공유하는 필드
-  static List<Task> taskList = new ArrayList<>();
-  static File taskFile = new File("./task.json"); // 작업을 저장할 파일 정보
+    List<Member> memberList = new LinkedList<>();
+    File memberFile = new File("./member.json"); // 회원을 저장할 파일 정보
 
+    List<Project> projectList = new LinkedList<>();
+    File projectFile = new File("./project.json"); // 프로젝트를 저장할 파일 정보
 
-  public static void main(String[] args) {
+    List<Task> taskList = new ArrayList<>();
+    File taskFile = new File("./task.json"); // 작업을 저장할 파일 정보
 
     // 파일에서 데이터 로딩
     loadObjects(boardList, boardFile, Board[].class);
@@ -152,7 +152,7 @@ public class App {
     saveObjects(taskList, taskFile);
   }
 
-  static void printCommandHistory(Iterator<String> iterator) {
+  void printCommandHistory(Iterator<String> iterator) {
     try {
       int count = 0;
       while (iterator.hasNext()) {
@@ -168,52 +168,56 @@ public class App {
     }
   }
 
-  private static <T extends CsvObject> void saveObjects(Collection<T> list, File file) {
+  // 이제 더이상 저장할 객체를 CsvObject로 제한할 필요가 없다.
+  // 어떤 타입의 객체든지 JSON 형식으로 변환할 수 있기 때문이다.
+  private void saveObjects(Collection<?> list, File file) {
     BufferedWriter out = null;
+
     try {
-      // 파일로 데이터를 출력할 때 사용할 도구를 준비한다.
       out = new BufferedWriter(new FileWriter(file));
-      //컬렉션 객체를 통째로 JSON 문자열로 내보내기
+
+      // 컬렉션 객체를 통째로 JSON 문자열로 내보내기
       Gson gson = new Gson();
       String jsonStr = gson.toJson(list);
       out.write(jsonStr);
 
-
       out.flush();
-      System.out.printf("총 %d 개의 객체를 '%s'에 저장했습니다.\n", list.size(), file.getName());
+
+      System.out.printf("총 %d 개의 객체를 '%s' 파일에 저장했습니다.\n",
+          list.size(), file.getName());
 
     } catch (IOException e) {
-      System.out.printf("객체를 '%s' 파일에 쓰는 중 오류 발생! - %s\n ", file.getName(), e.getMessage());
+      System.out.printf("객체를 '%s' 파일에  쓰는 중 오류 발생! - %s\n",
+          file.getName(), e.getMessage());
 
     } finally {
       try {
         out.close();
       } catch (IOException e) {
-        // FileWriter를 닫을 때 발생하는 예외는 무시한다.
       }
     }
   }
 
-
-  private static <T> void loadObjects(
-      Collection<T> list,
-      File file,
-      Class<T[]> clazz
+  // 파일에서 JSON 문자열을 읽어 지정한 타입의 객체를 생성한 후 컬렉션에 저장한다.
+  private <T> void loadObjects(
+      Collection<T> list, // 객체를 담을 컬렉션
+      File file, // JSON 문자열이 저장된 파일
+      Class<T[]> clazz // JSON 문자열을 어떤 타입의 배열로 만들 것인지 알려주는 클래스 정보
       ) {
     BufferedReader in = null;
 
     try {
-      // 파일을 읽을 때 사용할 도구를 준비한다.
       in = new BufferedReader(new FileReader(file));
 
-      //1)
+      // 1) 직접 문자열을 읽어 Gson에게 전달하기
+      //      // 파일에서 모든 문자열을 읽어 StringBuilder에 담은 다음에
+      //      // 최종적으로 String 객체를 꺼낸다.
       //      StringBuilder strBuilder = new StringBuilder();
-      //
       //      int b = 0;
-      //
       //      while ((b = in.read()) != -1) {
       //        strBuilder.append((char) b);
       //      }
+      //
       //      // JSON 문자열을 가지고 자바 객체를 생성한다.
       //      Gson gson = new Gson();
       //      T[] arr = gson.fromJson(strBuilder.toString(), clazz);
@@ -229,14 +233,14 @@ public class App {
       //      }
 
       // 3) 배열을 컬렉션에 바로 전달하기
+      // => 개발자가 반복문을 실행하는 대신 메서드 호출을 통해 목록에 넣는다.
       //      Gson gson = new Gson();
       //      T[] arr = gson.fromJson(in, clazz);
+      //      // 배열 => 컬렉션 객체 => list에 추가하기
       //      list.addAll(Arrays.asList(arr));
 
       // 4) 코드 정리
-
       list.addAll(Arrays.asList(new Gson().fromJson(in, clazz)));
-
 
       System.out.printf("'%s' 파일에서 총 %d 개의 객체를 로딩했습니다.\n",
           file.getName(), list.size());
@@ -244,19 +248,12 @@ public class App {
     } catch (Exception e) {
       System.out.printf("'%s' 파일 읽기 중 오류 발생! - %s\n",
           file.getName(), e.getMessage());
-      // 파일에서 데이터를 읽다가 오류가 발생하더라도
-      // 시스템을 멈추지 않고 계속 실행하게 한다.
-      // 이것이 예외처리를 하는 이유이다!!!
+
     } finally {
       try {
         in.close();
       } catch (Exception e) {
-        // close() 실행하다가 오류가 발생한 경우 무시한다.
-        // 왜? 닫다가 발생한 오류는 특별히 처리할 게 없다.
       }
     }
   }
-
 }
-
-

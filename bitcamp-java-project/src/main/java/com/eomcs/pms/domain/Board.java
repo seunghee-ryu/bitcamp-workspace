@@ -1,9 +1,10 @@
 package com.eomcs.pms.domain;
 
 import java.sql.Date;
-import com.eomcs.util.CsvObject;
 
-public class Board implements CsvObject {
+// Board 클래스는 더이상 CsvObject를 구현할 필요가 없다.
+//
+public class Board {
   private int no;
   private String title;
   private String content;
@@ -47,44 +48,10 @@ public class Board implements CsvObject {
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
   }
-
-  @Override
-  public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%s,%d",
-        this.getNo(),
-        this.getTitle(),
-        this.getContent(),
-        this.getWriter(),
-        this.getRegisteredDate(),
-        this.getViewCount());
-  }
-
-  public static Board valueOfCsv(String csv) {
-    String[] fields = csv.split(",");
-
-    Board board = new Board();
-    board.setNo(Integer.parseInt(fields[0]));
-    board.setTitle(fields[1]);
-    board.setContent(fields[2]);
-    board.setWriter(fields[3]);
-    board.setRegisteredDate(Date.valueOf(fields[4]));
-    board.setViewCount(Integer.parseInt(fields[5]));
-
-    return board;
-  }
-
-  public Board() {}
-
-  public Board(String csv) {
-    String[] fields = csv.split(",");
-
-    this.setNo(Integer.parseInt(fields[0]));
-    this.setTitle(fields[1]);
-    this.setContent(fields[2]);
-    this.setWriter(fields[3]);
-    this.setRegisteredDate(Date.valueOf(fields[4]));
-    this.setViewCount(Integer.parseInt(fields[5]));
-
-  }
-
 }
+
+
+
+
+
+
