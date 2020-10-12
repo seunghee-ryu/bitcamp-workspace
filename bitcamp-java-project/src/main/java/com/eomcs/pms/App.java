@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import com.eomcs.context.ApplicationContextListener;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
@@ -43,18 +44,48 @@ import com.eomcs.pms.handler.TaskDeleteCommand;
 import com.eomcs.pms.handler.TaskDetailCommand;
 import com.eomcs.pms.handler.TaskListCommand;
 import com.eomcs.pms.handler.TaskUpdateCommand;
+import com.eomcs.pms.listener.AppInitListener;
 import com.eomcs.util.Prompt;
 import com.google.gson.Gson;
 
 public class App {
 
+  List<ApplicationContextListener> listeners = new ArrayList<>();
+
+  public void addApplicationContextListener(ApplicationContextListener listener) {
+    listeners.add(listener);
+  }
+
+  public void removeApplicationContextListener(ApplicationContextListener listener) {
+    listeners.remove(listener);
+  }
+
+  private void notifyApplicationContextlistenerOnServiceStarted() {
+    for (ApplicationContextListener listener : listeners) {
+      listener.contextInitialized();
+    }
+  }
+
+  private void notifyApplicationContextlistenerOnServiceStopped() {
+    for (ApplicationContextListener listener : listeners) {
+      listener.contextDestroyed();
+    }
+  }
+
+
   public static void main(String[] args) throws Exception {
     App app = new App();
+
+    app.addApplicationContextListener(new AppInitListener());
+
     app.service();
 
   }
 
   private void service() throws Exception {
+
+    notifyApplicationContextlistenerOnServiceStarted();
+
     // 스태틱 멤버들이 공유하는 변수가 아니라면 로컬 변수로 만들라.
     List<Board> boardList = new ArrayList<>();
     File boardFile = new File("./board.json"); // 게시글을 저장할 파일 정보
@@ -150,7 +181,12 @@ public class App {
     saveObjects(memberList, memberFile);
     saveObjects(projectList, projectFile);
     saveObjects(taskList, taskFile);
+
+    notifyApplicationContextlistenerOnServiceStopped();
+
   }
+
+
 
   void printCommandHistory(Iterator<String> iterator) {
     try {
