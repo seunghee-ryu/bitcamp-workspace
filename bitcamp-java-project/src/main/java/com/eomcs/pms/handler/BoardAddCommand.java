@@ -5,7 +5,7 @@ import java.util.List;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
-// Command 규칙에 따라 클래스를 정의한다.
+// Command 규칙에 따라 클래스를 정의한다. 
 public class BoardAddCommand implements Command {
 
   List<Board> boardList;
