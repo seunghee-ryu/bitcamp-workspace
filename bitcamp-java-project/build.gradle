@@ -25,9 +25,9 @@ repositories {
 
 dependencies {
 
-//json
+    //json
+    implementation 'com.google.code.gson:gson:2.8.6'
 
-implementation 'com.google.code.gson:gson:2.8.6'
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
 
