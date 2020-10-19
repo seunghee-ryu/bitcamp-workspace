@@ -2,9 +2,17 @@
 package com.eomcs.concurrent.ex1;
 
 public class Exam0120 {
+
+  // CPU의 시간을 쪼개서 왔다갔다 하면서
+  // 동시에 실행하고픈 코드가 있다면,
+  // 다음과 같이 Thread를 상속 받아
+  // run() 메서드에 그 코드를 두어라!
+  //
   static class MyThread extends Thread {
     @Override
     public void run() {
+      // 기존 실행 흐름과 분리하여 따로 실행시킬 코드를
+      // 이 메서드에 둔다.
       for (int i = 0; i < 1000; i++) {
         System.out.println("==> " + i);
       }
@@ -12,44 +20,19 @@ public class Exam0120 {
   }
 
   public static void main(String[] args) {
+    // => 동시에 실행할 코드를 담고 있는 Thread 객체를 생성한다.
+    // => 그리고 현재 실행과 분리하여 작업을 시작시킨다.
+    // => JVM은 이 스레드에 들어 있는 코드와 다음에 진행하는 코드를
+    // 왔다갔다 하면서 처리할 것이다.
     new MyThread().start();
 
     for (int i = 0; i < 1000; i++) {
       System.out.println(">>> " + i);
     }
   }
+
 }
-
-// CPU의 시간을 쪼개서 왔다갔다 하면서
-// 동시에 실행하고픈 코드가 있다면,
-// 다음과 같이 Thread를 상속 받아
-// run() 메서드에 그 코드를 두어라!
 //
-//  static class MyThread extends Thread {
-//    @Override
-//    public void run() {
-//      // 기존 실행 흐름과 분리하여 따로 실행시킬 코드를
-//      // 이 메서드에 둔다.
-//      for (int i = 0; i < 1000; i++) {
-//        System.out.println("==> " + i);
-//      }
-//    }
-//  }
-//
-//  public static void main(String[] args) {
-//    // => 동시에 실행할 코드를 담고 있는 Thread 객체를 생성한다.
-//    // => 그리고 현재 실행과 분리하여 작업을 시작시킨다.
-//    // => JVM은 이 스레드에 들어 있는 코드와 다음에 진행하는 코드를
-//    // 왔다갔다 하면서 처리할 것이다.
-//    new MyThread().start();
-//
-//    for (int i = 0; i < 1000; i++) {
-//      System.out.println(">>> " + i);
-//    }
-//  }
-//
-//}
-
 // main() 메서드를 실행하는 기본 실행 흐름에서 새로운 실행 흐름으로 분기하고 싶다면,
 // Thread 클래스에 분기해서 실행할 코드를 담으면 된다.
 // 그러면 두 개의 실행 흐름이 서로 왔다 갔다 하면서 실행된다.
