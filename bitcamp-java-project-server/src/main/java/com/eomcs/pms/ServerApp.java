@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import com.eomcs.context.ApplicationContextListener;
 import com.eomcs.pms.handler.Command;
 import com.eomcs.pms.listener.AppInitListener;
@@ -19,6 +22,9 @@ import com.eomcs.pms.listener.RequestMappingListener;
 public class ServerApp {
 
   static boolean stop = false;
+
+  // 스레드풀 준비
+  ExecutorService threadPool = Executors.newCachedThreadPool();
 
   static Map<String,Object> context = new Hashtable<>();
 
@@ -57,7 +63,8 @@ public class ServerApp {
         if (stop) {
           break;
         }
-        new Thread(() -> handleClient(clientSocket)).start();
+        // 스레드풀로 변경
+        threadPool.execute(() -> handleClient(clientSocket));
       }
 
     } catch (Exception e) {
@@ -65,7 +72,31 @@ public class ServerApp {
     }
 
     notifyApplicationContextListenerOnServiceStopped();
+
+    // 스레드풀을 종료한다.
+    threadPool.shutdown();
+
+    // 스레드풀을 종료한다.
+    try {
+      if (!threadPool.awaitTermination(10, TimeUnit.SECONDS)) {
+        System.out.println("아직 종료 안된 작업이 있다.");
+        System.out.println("남아 있는 작업의 강제 종료를 시도하겠다.");
+        threadPool.shutdownNow();
+
+        if (!threadPool.awaitTermination(5, TimeUnit.SECONDS)) {
+          System.out.println("스레드풀의 강제 종료를 완료하지 못했다.");
+        } else {
+          System.out.println("모든 작업을 강제 종료했다.");
+        }
+
+      }
+
+      System.out.println("main() 종료!");
+    } catch (Exception e) {
+      // 예외는 무시한다.
+    }
   }
+
 
   public static void main(String[] args) {
     ServerApp server = new ServerApp();
@@ -86,8 +117,6 @@ public class ServerApp {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter out = new PrintWriter(socket.getOutputStream())) {
 
-      // 한번만 통신하고 끊기 때문에 while 문으로 반복할 필요가 없다.
-      // 클라이언트가 보낸 요청을 읽는다.
       String request = in.readLine();
 
       if (request.equalsIgnoreCase("stop")) {
