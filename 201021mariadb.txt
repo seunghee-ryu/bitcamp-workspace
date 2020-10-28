@@ -1,0 +1,308 @@
+Last login: Tue Oct 20 16:42:33 on ttys000
+ rsh@rsh  ~
+ mysql -u root -p
+zsh: command not found: mysql
+ ✘ rsh@rsh  ~
+ brew install mariadb
+Updating Homebrew...
+==> Auto-updated Homebrew!
+Updated 1 tap (homebrew/core).
+==> New Formulae
+alsa-lib                 halide                   libxext                  postgresql@12
+asroute                  httpx                    libxfixes                prometheus-cpp
+blaze                    infracost                libxfont                 protoc-gen-go-grpc
+borgbackup               inja                     libxft                   protoc-gen-gogo
+box2d                    ioctl                    libxi                    protoc-gen-gogofaster
+castget                  ladspa-sdk               libxinerama              python@3.9
+cbc                      leaf                     libxkbfile               rustscan
+cdktf                    libaio                   libxmu                   server-go
+clang-format@8           libdmx                   libxpm                   shtools
+cli11                    libdrm                   libxrandr                sleef
+cloudformation-guard     libfontenc               libxrender               snap
+commitizen               libfs                    libxres                  sponge
+croc                     libgccjit                libxscrnsaver            sqlite-utils
+cvs-fast-export          libhandy                 libxshmfence             staticcheck
+datasette                libice                   libxt                    structurizr-cli
+dbdeployer               libirecovery             libxtst                  terraform@0.12
+device-mapper            libmnl                   libxv                    terrascan
+diskonaut                libnetfilter-queue       libxvmc                  tfsec
+dotnet                   libnfnetlink             libxxf86dga              trunk
+empty                    libpciaccess             libxxf86vm               usb.ids
+envoy                    libpthread-stubs         localstack               util-macros
+fleet-cli                libseccomp               mariadb@10.4             vivid
+flit                     libsm                    matplotplusplus          volk
+font-util                libx11                   mhonarc                  vtk@8.2
+foreman                  libxau                   microplane               webify
+fpart                    libxaw                   numcpp                   wownero
+gcalcli                  libxaw3d                 openfst                  x86_64-elf-gdb
+git-hound                libxcb                   or-tools                 xcb-proto
+gitql                    libxcomposite            ormolu                   xdpyinfo
+go@1.14                  libxcursor               parallel-hashmap         xorgproto
+googletest               libxdamage               periscope                xtrans
+gost                     libxdmcp                 podman                   zsh-you-should-use
+==> Updated Formulae
+Updated 3028 formulae.
+==> Renamed Formulae
+gst-validate -> gst-devtools
+==> Deleted Formulae
+meson-internal                    wpscan                            xu4
+
+==> Downloading https://homebrew.bintray.com/bottles/mecab-0.996.catalina.bottle.3.tar.gz
+==> Downloading from https://d29vzk4ow07wi7.cloudfront.net/dba6306bcd5ddb9a824cb366b5432a036889440f2
+######################################################################## 100.0%
+==> Downloading https://homebrew.bintray.com/bottles/mecab-ipadic-2.7.0-20070801.catalina.bottle.tar
+==> Downloading from https://d29vzk4ow07wi7.cloudfront.net/90271975d35925136a14f2563e4b5201bed51b5c1
+######################################################################## 100.0%
+==> Downloading https://homebrew.bintray.com/bottles/msgpack-3.3.0.catalina.bottle.tar.gz
+==> Downloading from https://d29vzk4ow07wi7.cloudfront.net/bb3e3af7ce4994911518db90db9ff4747e7249283
+######################################################################## 100.0%
+==> Downloading https://homebrew.bintray.com/bottles/openssl%401.1-1.1.1h.catalina.bottle.tar.gz
+==> Downloading from https://d29vzk4ow07wi7.cloudfront.net/4e5357c0cfd55cfa4ef0b632c6fc9f49d39337dd0
+######################################################################## 100.0%
+==> Downloading https://homebrew.bintray.com/bottles/pcre-8.44.catalina.bottle.tar.gz
+==> Downloading from https://d29vzk4ow07wi7.cloudfront.net/f8ac266e04f984fa55091a43f0fdc39a40d57c248
+######################################################################## 100.0%
+==> Downloading https://homebrew.bintray.com/bottles/groonga-10.0.7.catalina.bottle.tar.gz
+==> Downloading from https://d29vzk4ow07wi7.cloudfront.net/dddbe2df0b41090b94a066c7cd49b4572aeb0c261
+######################################################################## 100.0%
+==> Downloading https://homebrew.bintray.com/bottles/mariadb-10.5.6.catalina.bottle.tar.gz
+==> Downloading from https://d29vzk4ow07wi7.cloudfront.net/b7300eb26d819c604b9f9abb6f5782b64bbf39a91
+######################################################################## 100.0%
+==> Installing dependencies for mariadb: mecab, mecab-ipadic, msgpack, openssl@1.1, pcre and groonga
+==> Installing mariadb dependency: mecab
+==> Pouring mecab-0.996.catalina.bottle.3.tar.gz
+🍺  /usr/local/Cellar/mecab/0.996: 20 files, 4.2MB
+==> Installing mariadb dependency: mecab-ipadic
+==> Pouring mecab-ipadic-2.7.0-20070801.catalina.bottle.tar.gz
+==> Caveats
+To enable mecab-ipadic dictionary, add to /usr/local/etc/mecabrc:
+  dicdir = /usr/local/lib/mecab/dic/ipadic
+==> Summary
+🍺  /usr/local/Cellar/mecab-ipadic/2.7.0-20070801: 16 files, 50.6MB
+==> Installing mariadb dependency: msgpack
+==> Pouring msgpack-3.3.0.catalina.bottle.tar.gz
+🍺  /usr/local/Cellar/msgpack/3.3.0: 757 files, 5.2MB
+==> Installing mariadb dependency: openssl@1.1
+==> Pouring openssl@1.1-1.1.1h.catalina.bottle.tar.gz
+==> Caveats
+A CA file has been bootstrapped using certificates from the system
+keychain. To add additional certificates, place .pem files in
+  /usr/local/etc/openssl@1.1/certs
+
+and run
+  /usr/local/opt/openssl@1.1/bin/c_rehash
+
+openssl@1.1 is keg-only, which means it was not symlinked into /usr/local,
+because macOS provides LibreSSL.
+
+If you need to have openssl@1.1 first in your PATH run:
+  echo 'export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"' >> ~/.zshrc
+
+For compilers to find openssl@1.1 you may need to set:
+  export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+  export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+
+For pkg-config to find openssl@1.1 you may need to set:
+  export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+
+==> Summary
+🍺  /usr/local/Cellar/openssl@1.1/1.1.1h: 8,067 files, 18.5MB
+==> Installing mariadb dependency: pcre
+==> Pouring pcre-8.44.catalina.bottle.tar.gz
+🍺  /usr/local/Cellar/pcre/8.44: 204 files, 5.5MB
+==> Installing mariadb dependency: groonga
+==> Pouring groonga-10.0.7.catalina.bottle.tar.gz
+🍺  /usr/local/Cellar/groonga/10.0.7: 921 files, 40.6MB
+==> Installing mariadb
+==> Pouring mariadb-10.5.6.catalina.bottle.tar.gz
+==> /usr/local/Cellar/mariadb/10.5.6/bin/mysql_install_db --verbose --user=rsh --basedir=/usr/local/
+==> Caveats
+A "/etc/my.cnf" from another install may interfere with a Homebrew-built
+server starting up correctly.
+
+MySQL is configured to only allow connections from localhost by default
+
+To have launchd start mariadb now and restart at login:
+  brew services start mariadb
+Or, if you don't want/need a background service you can just run:
+  mysql.server start
+==> Summary
+🍺  /usr/local/Cellar/mariadb/10.5.6: 782 files, 182.0MB
+==> `brew cleanup` has not been run in 30 days, running now...
+Removing: /Users/rsh/Library/Caches/Homebrew/gettext--0.20.2_1.catalina.bottle.tar.gz... (8.4MB)
+Removing: /Users/rsh/Library/Caches/Homebrew/git--2.27.0.catalina.bottle.1.tar.gz... (19.3MB)
+Removing: /Users/rsh/Library/Caches/Homebrew/gradle--6.5.1.zip... (139MB)
+Removing: /Users/rsh/Library/Caches/Homebrew/ruby-build--20200727.tar.gz... (67.1KB)
+Removing: /Users/rsh/Library/Caches/Homebrew/zsh-syntax-highlighting--0.7.1.catalina.bottle.tar.gz... (43.6KB)
+Removing: /Users/rsh/Library/Logs/Homebrew/pkg-config... (64B)
+Removing: /Users/rsh/Library/Logs/Homebrew/tree... (64B)
+Removing: /Users/rsh/Library/Logs/Homebrew/readline... (64B)
+Removing: /Users/rsh/Library/Logs/Homebrew/ruby-build... (2 files, 179B)
+Removing: /Users/rsh/Library/Logs/Homebrew/gradle... (102B)
+Removing: /Users/rsh/Library/Logs/Homebrew/openjdk... (64B)
+Removing: /Users/rsh/Library/Logs/Homebrew/gettext... (64B)
+Removing: /Users/rsh/Library/Logs/Homebrew/autoconf... (64B)
+Removing: /Users/rsh/Library/Logs/Homebrew/pcre2... (64B)
+Removing: /Users/rsh/Library/Logs/Homebrew/zsh-syntax-highlighting... (64B)
+Removing: /Users/rsh/Library/Logs/Homebrew/rbenv... (64B)
+Removing: /Users/rsh/Library/Logs/Homebrew/git... (64B)
+Pruned 1 symbolic links and 2 directories from /usr/local
+==> Caveats
+==> mecab-ipadic
+To enable mecab-ipadic dictionary, add to /usr/local/etc/mecabrc:
+  dicdir = /usr/local/lib/mecab/dic/ipadic
+==> openssl@1.1
+A CA file has been bootstrapped using certificates from the system
+keychain. To add additional certificates, place .pem files in
+  /usr/local/etc/openssl@1.1/certs
+
+and run
+  /usr/local/opt/openssl@1.1/bin/c_rehash
+
+openssl@1.1 is keg-only, which means it was not symlinked into /usr/local,
+because macOS provides LibreSSL.
+
+If you need to have openssl@1.1 first in your PATH run:
+  echo 'export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"' >> ~/.zshrc
+
+For compilers to find openssl@1.1 you may need to set:
+  export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+  export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+
+For pkg-config to find openssl@1.1 you may need to set:
+  export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+
+==> mariadb
+A "/etc/my.cnf" from another install may interfere with a Homebrew-built
+server starting up correctly.
+
+MySQL is configured to only allow connections from localhost by default
+
+To have launchd start mariadb now and restart at login:
+  brew services start mariadb
+Or, if you don't want/need a background service you can just run:
+  mysql.server start
+ rsh@rsh  ~
+ brew services start mariadb
+==> Tapping homebrew/services
+Cloning into '/usr/local/Homebrew/Library/Taps/homebrew/homebrew-services'...
+remote: Enumerating objects: 20, done.
+remote: Counting objects: 100% (20/20), done.
+remote: Compressing objects: 100% (20/20), done.
+remote: Total 932 (delta 8), reused 5 (delta 0), pack-reused 912
+Receiving objects: 100% (932/932), 262.16 KiB | 164.00 KiB/s, done.
+Resolving deltas: 100% (382/382), done.
+Tapped 1 command (40 files, 344.7KB).
+==> Successfully started `mariadb` (label: homebrew.mxcl.mariadb)
+ rsh@rsh  ~
+ mysql -u root -p
+Enter password: 
+ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+ ✘ rsh@rsh  ~
+ brew service stop mariadb
+Error: Unknown command: service
+ ✘ rsh@rsh  ~
+ brew services stop mariadb
+Stopping `mariadb`... (might take a while)
+==> Successfully stopped `mariadb` (label: homebrew.mxcl.mariadb)
+ rsh@rsh  ~
+ brew services start mariadb
+==> Successfully started `mariadb` (label: homebrew.mxcl.mariadb)
+ rsh@rsh  ~
+ mysql -u root -p
+Enter password: 
+ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+ ✘ rsh@rsh  ~
+ sudo mysql_secure_installation
+Password:
+Sorry, try again.
+Password:
+
+NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MariaDB to secure it, we'll need the current
+password for the root user. If you've just installed MariaDB, and
+haven't set the root password yet, you should just press enter here.
+
+Enter current password for root (enter for none): 
+OK, successfully used password, moving on...
+
+Setting the root password or using the unix_socket ensures that nobody
+can log into the MariaDB root user without the proper authorisation.
+
+You already have your root account protected, so you can safely answer 'n'.
+
+Switch to unix_socket authentication [Y/n] n
+ ... skipping.
+
+You already have your root account protected, so you can safely answer 'n'.
+
+Change the root password? [Y/n] y
+New password: 
+Re-enter new password: 
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+By default, a MariaDB installation has an anonymous user, allowing anyone
+to log into MariaDB without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] y
+ ... Success!
+
+Normally, root should only be allowed to connect from 'localhost'.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] y
+ ... Success!
+
+By default, MariaDB comes with a database named 'test' that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n] y
+ - Dropping test database...
+ ... Success!
+ - Removing privileges on test database...
+ ... Success!
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n] y
+ ... Success!
+
+Cleaning up...
+
+All done!  If you've completed all of the above steps, your MariaDB
+installation should now be secure.
+
+Thanks for using MariaDB!
+ rsh@rsh  ~
+ brew services stop mariadb
+Stopping `mariadb`... (might take a while)
+==> Successfully stopped `mariadb` (label: homebrew.mxcl.mariadb)
+ rsh@rsh  ~
+ mysql -u root -p
+Enter password: 
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)
+ ✘ rsh@rsh  ~
+ brew services start mariadb   
+==> Successfully started `mariadb` (label: homebrew.mxcl.mariadb)
+ rsh@rsh  ~
+ mysql -u root -p           
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 3
+Server version: 10.5.6-MariaDB Homebrew
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> 

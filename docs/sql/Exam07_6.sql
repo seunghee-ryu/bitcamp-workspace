@@ -26,7 +26,24 @@ from lect_appl la;
 /* => 2단계 : 서브 쿼리를 이용하여 강의명을 가져오기 */
 select 
     la.lano, 
-    (select titl from lect where lno=la.lno) as lect_title, 
+    (select titl from lect) as lect_title, 
+    la.mno, 
+    la.rdt
+from lect_appl la;
+
+/* 단 컬럼 자리에 가져올 때는 결과 값이 하나여야 한다.*/
+/* 컬럼 값이 여러개가 리턴된다면 컬럼 값으로 사용할 수 없기 때문에 오류이다.*/
+select 
+    la.lano, 
+    (select titl, sdt from lect where lno=la.lno) as lect_title, 
+    la.mno, 
+    la.rdt
+from lect_appl la;
+
+/* 또한 컬럼 갯수도 한개여야 한다.*/
+select 
+    la.lano, 
+    (select titl from lect) as lect_title, 
     la.mno, 
     la.rdt
 from lect_appl la;
@@ -93,8 +110,7 @@ from lect l;
 /* 위의 질의문을 view를 사용하여 다시 작성해보자! */
 select 
     la.lano, 
-    (select titl from lect where lno=la.lno) as lect_title, 
-    (select name from memb where mno=la.mno) as stud_name,
+    (select name from memb where mno=la.mno) as snm,
     lec.titl,
     lec.room_name,
     lec.manager_name,

@@ -1,7 +1,6 @@
 package com.eomcs.basic.ex05;
 
 //# 산술 연산자 : 암시적 형변환(implicit type conversion)
-// 내부적으로 JVM이 형변환을 한다.
 //
 public class Exam0150 {
   public static void main(String[] args) {
@@ -13,8 +12,6 @@ public class Exam0150 {
     double d = 6.6;
     boolean bool = true;
     char c = 7;
-
-    //작은 메모리는 큰 메모리로 변한다.
 
     // byte + byte = int
     // => 연산을 하기 전에 byte 값이 int로 암시적 형변환 된다.
@@ -38,7 +35,7 @@ public class Exam0150 {
 
     // int + long = long
     // => int가 long으로 암시적 형변환 한 이후에 연산을 수행한다.
-    // int r6 = i + l; // 컴파일 오류!
+    //int r6 = i + l; // 컴파일 오류!
 
     // long + float = float
     // => long이 float으로 암시적 형변환 한 후에 연산을 수행한다.
@@ -56,21 +53,19 @@ public class Exam0150 {
     //long r10 = b + s + i + l + f + d; // 컴파일 오류!
 
     // float + int + long = float
-    // long r11 = f + i + l; // 컴파일 오류!
+    //long r11 = f + i + l; // 컴파일 오류!
 
     // boolean + int = 컴파일 오류!
     // => 산술 연산자는 정수 타입(byte, short, char, int, long)과
-    //    부동소수점 타입(float, double)에 대해서만 
-    //    실행할 수 있다. 
-    //    암시적 형변환 불가.
-    
+    //    부동소수점 타입(float, double)에 대해서만
+    //    실행할 수 있다.
     //int r12 = bool + i; // 컴파일 오류!
   }
 }
 
 // 정리!
 // - 연산은 항상 같은 타입끼리만 가능하다.
-// - 다른 타입끼리 연산을 할 때는 둘 중 한개의 타입을 다른 타입을 
+// - 다른 타입끼리 연산을 할 때는 둘 중 한개의 타입을 다른 타입을
 //   바꿔야 한다.
 // - 타입을 바꾸는 것을 내부적인 규칙에 따라 자동으로 처리한다고 해서
 //   "암시적 형변환(implicit type conversion)"이라 부른다.

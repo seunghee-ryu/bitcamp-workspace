@@ -10,7 +10,6 @@ public class Exam0250 {
     int age = keyboard.nextInt();
 
     // 한 개의 토큰을 읽을 때 유용하다.
-    // 리턴 값은 반드시 문자열이다.
     String name = keyboard.next();
 
     boolean working = keyboard.nextBoolean();

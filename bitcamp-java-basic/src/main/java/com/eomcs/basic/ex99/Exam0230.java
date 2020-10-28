@@ -8,7 +8,7 @@ public class Exam0230 {
 
     System.out.print("int: ");
     int i = keyboard.nextInt();
-    // nextInt()는 한 개의 토큰(token / 공백으로 분리된 하나의 값)을 읽을 때가지 기다린다.
+    // nextInt()는 한 개의 토큰(token)을 읽을 때가지 기다린다.
     // 한 개의 token을 읽으면 4바이트 정수 값으로 바꾼 다음에 리턴한다.
     // 토큰(token)?
     // => 토큰이란 공백으로 구분되는 단어를 뜻한다.
@@ -17,14 +17,12 @@ public class Exam0230 {
     // 예) aaa    bbb cc ==> aaa, bbb, cc
     // 중간에 여러 개의 공백이 들어가더라도 한 개의 공백으로 간주한다.
 
-
     System.out.print("float: ");
     float f = keyboard.nextFloat();
 
 
     System.out.print("boolean: ");
     boolean b = keyboard.nextBoolean();
-
 
     keyboard.close();
 

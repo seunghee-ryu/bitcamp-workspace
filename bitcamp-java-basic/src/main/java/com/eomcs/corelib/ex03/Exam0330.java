@@ -53,11 +53,11 @@ public class Exam0330 {
     list.add(s3);
     print(list);
 
-    System.out.println(s2.equals(s4));
     System.out.println(list.indexOf(s4)); // 1
     // Member 클래스는 equals()를 오버라이딩 했다.
     // 따라서 인스턴스가 다르더라도 Member의 name과 age 값이 같다면
     // equals()의 검사 결과가 true이기 때문에 indexOf()로 객체를 찾을 수 있다.
+    System.out.println(s2.equals(s4));
   }
 
   static void print(ArrayList list) {

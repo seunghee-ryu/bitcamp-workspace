@@ -35,9 +35,7 @@ import java.util.Arrays;
 //21) toArray()에서 배열을 복사할 때 Arrays.copyOf() 메서드를 활용해보자.
 //22) 제네릭 적용
 //23) 파라미터로 받은 배열에 값을 채워주는 toArray(E[]) 메서드를 추가한다.
-//24)
 public class MyArrayList23<E> {
-  // <E>로 변수를 선언하라
 
   private static final int DEFAULT_CAPACITY = 5;
   private Object[] elementData;
@@ -150,20 +148,12 @@ public class MyArrayList23<E> {
     return arr;
      */
   }
-
+  
   @SuppressWarnings("unchecked")
   public E[] toArray(E[] arr) {
-//    if (arr.length < size) {
-//      // 새 배열을 만든다.
-//      // 배열 항목의 클래스 정보를 알려줘야 한다.
-//      arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), this.size);
-//    }
-    System.arraycopy(this.elementData,
-        0,
-        arr, //
-        0, // 배열의 목적지
-        this.size); // 최대 size만큼
-
+    for (int i = 0; i < this.size; i++) {
+      arr[i] = (E) this.elementData[i];
+    }
     return arr;
   }
 }

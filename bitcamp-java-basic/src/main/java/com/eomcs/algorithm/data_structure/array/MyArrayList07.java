@@ -23,7 +23,7 @@ public class MyArrayList07 {
     return true;
   }
 
-  static void grow() {
+  static private void grow() {
     System.out.println("오호라! 배열을 늘리자.");
     Object[] newArray = new Object[elementData.length + (elementData.length >> 1)];
     for (int i = 0; i < elementData.length; i++) {

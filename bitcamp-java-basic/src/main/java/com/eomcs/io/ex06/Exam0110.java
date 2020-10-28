@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 public class Exam0110 {
 
   public static void main(String[] args) throws Exception {
-    FileInputStream in = new FileInputStream("temp/jls11.pdf");
+    BufferedInputStream in = new BufferedInputStream("temp/jls11.pdf");
 
     int b;
 

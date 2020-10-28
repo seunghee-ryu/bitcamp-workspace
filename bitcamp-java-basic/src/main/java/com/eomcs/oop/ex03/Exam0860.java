@@ -12,18 +12,18 @@ public class Exam0860 {
     //
 
     // 필드 선언 및 초기화 문장(variable initializer)
-    int a = 100;
-
-    // 인스턴스 초기화 블록(initializer block)
     {
       this.a = 200;
       System.out.println("초기화 블록");
     }
+    int a = 100;
+
+    // 인스턴스 초기화 블록(initializer block)
 
     A() {
-      // a = 100;
       // a = 200;
       // System.out.println("초기화 블록");
+      // a = 100;
 
       System.out.println("A()");
     }

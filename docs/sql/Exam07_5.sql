@@ -36,7 +36,7 @@ select m.mno, name, s.mno, work, bank
 from memb m, stnt s;
 
 
-/* natural join: 같은 이름을 가진 컬럼 값을 기준으로 연결한다. */
+/* natural join: 같은 이름을 가진 컬럼 값을 기준으로 레코드를 연결한다. */
 select m.mno, name, s.mno, work, bank
 from memb m natural join stnt s;   
 
@@ -156,6 +156,7 @@ where memb.mno=stnt.mno;
 select memb.mno, name, work
 from memb inner join stnt on memb.mno=stnt.mno;
 
+/*inner는 생략 가능하다.*/
 select memb.mno, name, work
 from memb join stnt on memb.mno=stnt.mno;
 
@@ -238,11 +239,11 @@ from lect_appl la
 select 
   la.lano, 
   l.titl, 
-  m.name, 
+  m.name snm, 
   s.work, 
   la.rdt, 
-  r.name, 
-  m2.name, 
+  r.name rnm, 
+  m2.name mnm, 
   mr.posi
 from lect_appl la 
         join memb m on la.mno=m.mno
