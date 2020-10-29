@@ -10,6 +10,10 @@ repositories {
 
 dependencies {
 
+    //MSSQL JDBC Driver
+    implementation 'com.microsoft.sqlserver:mssql-jdbc:8.4.1.jre11'
+
+    //mariadb
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.0'
 
     //JSON 라이브러리
