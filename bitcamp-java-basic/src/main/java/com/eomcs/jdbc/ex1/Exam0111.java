@@ -2,7 +2,7 @@ package com.eomcs.jdbc.ex1;
 
 import java.sql.DriverManager;
 
-public class Exam0110 {
+public class Exam0111 {
   public static void main(String[] args) {
     try {
 
@@ -28,6 +28,8 @@ public class Exam0110 {
 
       java.sql.Driver driver3 = DriverManager.getDriver("jdbc:sqlserver://");
       System.out.println(driver3);
+
+      // 등록되지 않은 것은 에러가 뜰 것이다.
 
 
     }catch (Exception e) {

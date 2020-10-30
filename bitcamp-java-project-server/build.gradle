@@ -10,7 +10,7 @@ dependencies {
     //json
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.google.guava:guava:29.0-jre'
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.1'
 }
 application {
     mainClassName = 'com.eomcs.pms.ServerApp'
