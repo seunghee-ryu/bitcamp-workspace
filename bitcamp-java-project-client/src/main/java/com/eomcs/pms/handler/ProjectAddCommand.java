@@ -6,8 +6,6 @@ import com.eomcs.util.Prompt;
 
 public class ProjectAddCommand implements Command {
 
-  List<Project> projectList;
-  MemberListCommand memberListCommand;
 
   public ProjectAddCommand(List<Project> list, MemberListCommand memberListCommand) {
     this.projectList = list;
@@ -59,3 +57,20 @@ public class ProjectAddCommand implements Command {
     projectList.add(project);
   }
 }
+
+
+//create table pms_project(
+//    no int not null,
+//    title varchar(255) not null,
+//    content text not null,
+//    std datetime default now(),
+//    edd datetime not null,
+//    owner varchar(30) not null,
+//    member varchar(255) not null
+//    );
+//
+//alter table pms_project
+//add constraint pms_project_pk primary key(no);
+//
+//alter table pms_project
+//modify column no int not null auto_increment;
