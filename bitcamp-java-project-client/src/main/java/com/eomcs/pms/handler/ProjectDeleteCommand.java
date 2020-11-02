@@ -17,22 +17,23 @@ public class ProjectDeleteCommand implements Command {
       System.out.println("프로젝트 삭제를 취소하였습니다.");
       return;
     }
+
     try (Connection con = DriverManager.getConnection(
         "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
         PreparedStatement stmt = con.prepareStatement(
-            "delete from pms_project where no =" + no
-            );) {
+            "delete from pms_project where no=?")) {
+
+      stmt.setInt(1, no);
 
       int count = stmt.executeUpdate();
-
       if (count == 0) {
-        System.out.println("해당 번호의 게시물이 존재하지 않습니다.");
+        System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
       } else {
-        System.out.printf("삭제하였습니다.");
-        System.out.println();
+        System.out.println("프로젝트를 삭제하였습니다.");
       }
+
     } catch (Exception e) {
-      System.out.println("게시글 삭제 중 오류 발생");
+      System.out.println("프로젝트 삭제 중 오류 발생!");
       e.printStackTrace();
     }
   }
