@@ -44,15 +44,12 @@ public class ProjectAddCommand implements Command {
         project.setOwner(member);
         break;
       }
-
     }
 
     // 프로젝트에 참여할 회원 정보를 담는다.
     List<Member> members = new ArrayList<>();
-
     while (true) {
       String name = Prompt.inputString("팀원?(완료: 빈 문자열) ");
-
       if (name.length() == 0) {
         break;
       } else {
@@ -65,8 +62,7 @@ public class ProjectAddCommand implements Command {
       }
     }
 
-
-    // 사용자로부터 입력받은 멤버 정보를 프로젝트에 저장한다.
+    // 사용자로부터 입력 받은 멤버 정보를 프로젝트에 저장한다.
     project.setMembers(members);
 
     try (Connection con = DriverManager.getConnection(
@@ -81,7 +77,6 @@ public class ProjectAddCommand implements Command {
       stmt.setDate(3, project.getStartDate());
       stmt.setDate(4, project.getEndDate());
       stmt.setInt(5, project.getOwner().getNo());
-
       stmt.executeUpdate();
 
       // 금방 입력한 프로젝트의 no 값을 가져오기
@@ -90,16 +85,12 @@ public class ProjectAddCommand implements Command {
         project.setNo(keyRs.getInt(1));
       }
 
-      // 프로젝트에 참여하는 메버의 정보를 저장한다.
+      // 프로젝트에 참여하는 멤버의 정보를 저장한다.
       try (PreparedStatement stmt2 = con.prepareStatement(
-          "insert into pms_member_project(member_no, project_no) values(?,?)"
-          )) {
-
+          "insert into pms_member_project(member_no, project_no) values(?,?)")) {
         for (Member member : project.getMembers()) {
-
           stmt2.setInt(1, member.getNo());
           stmt2.setInt(2, project.getNo());
-
           stmt2.executeUpdate();
         }
       }
