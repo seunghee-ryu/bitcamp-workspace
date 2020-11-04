@@ -1,11 +1,15 @@
 package com.eomcs.pms.handler;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.util.Prompt;
 
 public class ProjectDeleteCommand implements Command {
+
+  ProjectDao projectDao;
+
+  public ProjectDeleteCommand(ProjectDao projectDao) {
+    this.projectDao = projectDao;
+  }
 
   @Override
   public void execute() {
@@ -18,21 +22,9 @@ public class ProjectDeleteCommand implements Command {
       return;
     }
 
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-        PreparedStatement stmt = con.prepareStatement(
-            "delete from pms_project where no=?")) {
+    try {
 
-      // => 프로젝트에 참여하는 모든 팀원을 삭제한다.
-      try (PreparedStatement stmt2 = con.prepareStatement(
-          "delete from pms_member_project where project_no=" + no)) {
-        stmt2.executeUpdate();
-      }
-
-      stmt.setInt(1, no);
-      int count = stmt.executeUpdate();
-
-      if (count == 0) {
+      if (projectDao.delete(no) == 0) {
         System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
         return;
       }
