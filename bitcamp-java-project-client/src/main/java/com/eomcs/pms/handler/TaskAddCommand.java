@@ -2,6 +2,7 @@ package com.eomcs.pms.handler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.dao.TaskDao;
@@ -13,17 +14,17 @@ import com.eomcs.util.Prompt;
 public class TaskAddCommand implements Command {
 
   TaskDao taskDao;
-  MemberDao memberDao;
   ProjectDao projectDao;
+  MemberDao memberDao;
 
-  public TaskAddCommand(TaskDao taskDao, MemberDao memberDao, ProjectDao projectDao) {
+  public TaskAddCommand(TaskDao taskDao, ProjectDao projectDao, MemberDao memberDao) {
     this.taskDao = taskDao;
-    this.memberDao = memberDao;
     this.projectDao = projectDao;
+    this.memberDao = memberDao;
   }
 
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[작업 등록]");
 
     // 작업 정보를 입력 받을 객체 준비
@@ -33,16 +34,13 @@ public class TaskAddCommand implements Command {
     try {
       List<Project> projects = projectDao.findAll();
       if (projects.size() == 0) {
-        System.out.println("프로젝트가 없습니다.");
+        System.out.println("프로젝트가 없습니다!");
         return;
       }
 
-      // 프로젝트 번호를 보관할 컬렉션
       ArrayList<Integer> projectNoList = new ArrayList<>();
       for (Project project : projects) {
-        System.out.printf("  %d, %s\n",
-            project.getNo(),
-            project.getTitle());
+        System.out.printf("  %d, %s\n", project.getNo(), project.getTitle());
         projectNoList.add(project.getNo());
       }
 
@@ -59,19 +57,22 @@ public class TaskAddCommand implements Command {
         System.out.println("프로젝트 번호가 맞지 않습니다.");
       }
 
+      // 작업 정보를 입력 받는다.
       task.setContent(Prompt.inputString("내용? "));
       task.setDeadline(Prompt.inputDate("마감일? "));
       task.setStatus(Prompt.inputInt("상태?\n0: 신규\n1: 진행중\n2: 완료\n> "));
 
-      // 작업을 수행할 담당자를 결정한다.
+      // 프로젝트의 멤버 중에서 작업을 수행할 담당자를 결정한다.
       List<Member> members = memberDao.findByProjectNo(task.getProjectNo());
       if (members.size() == 0) {
-        System.out.println("멤버가 없습니다.");
+        System.out.println("멤버가 없습니다!");
         return;
       }
 
+      // 멤버 번호를 보관할 컬렉션
       ArrayList<Integer> memberNoList = new ArrayList<>();
-      System.out.println("멤버들: ");
+
+      System.out.println("멤버들:");
       for (Member member : members) {
         System.out.printf("  %d, %s\n", member.getNo(), member.getName());
         memberNoList.add(member.getNo());

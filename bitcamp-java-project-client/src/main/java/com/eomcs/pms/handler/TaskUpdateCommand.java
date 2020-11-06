@@ -2,6 +2,7 @@ package com.eomcs.pms.handler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.dao.TaskDao;
@@ -13,17 +14,17 @@ import com.eomcs.util.Prompt;
 public class TaskUpdateCommand implements Command {
 
   TaskDao taskDao;
-  MemberDao memberDao;
   ProjectDao projectDao;
+  MemberDao memberDao;
 
-  public TaskUpdateCommand(TaskDao taskDao, MemberDao memberDao, ProjectDao projectDao) {
+  public TaskUpdateCommand(TaskDao taskDao, ProjectDao projectDao, MemberDao memberDao) {
     this.taskDao = taskDao;
-    this.memberDao = memberDao;
     this.projectDao = projectDao;
+    this.memberDao = memberDao;
   }
 
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[작업 변경]");
 
     try {
@@ -40,23 +41,21 @@ public class TaskUpdateCommand implements Command {
 
       List<Project> projects = projectDao.findAll();
       if (projects.size() == 0) {
-        System.out.println("프로젝트가 없습니다.");
+        System.out.println("프로젝트가 없습니다!");
         return;
       }
 
       ArrayList<Integer> projectNoList = new ArrayList<>();
       for (Project project : projects) {
-        System.out.printf("  %d, %s\n",
-            project.getNo(),
-            project.getTitle());
+        System.out.printf("  %d, %s\n", project.getNo(), project.getTitle());
         projectNoList.add(project.getNo());
       }
 
       // 사용자로부터 프로젝트 번호를 입력 받는다.
       while (true) {
-        int projectNo = Prompt.inputInt("변경할 프로젝트 번호?(0: 취소) ");
+        int projectNo = Prompt.inputInt("프로젝트 번호?(0: 취소) ");
         if (projectNo == 0) {
-          System.out.println("작업 변경을 취소합니다.");
+          System.out.println("작업 등록을 취소합니다.");
           return;
         } else if (projectNoList.contains(projectNo)) {
           task.setProjectNo(projectNo);
@@ -64,7 +63,6 @@ public class TaskUpdateCommand implements Command {
         }
         System.out.println("프로젝트 번호가 맞지 않습니다.");
       }
-
 
       // 작업 정보 변경
       task.setContent(Prompt.inputString(String.format(
@@ -86,13 +84,14 @@ public class TaskUpdateCommand implements Command {
       task.setStatus(Prompt.inputInt(String.format(
           "상태(%s)?\n0: 신규\n1: 진행중\n2: 완료\n> ", stateLabel)));
 
-      // 작업을 수행할 담당자를 결정한다.
+      // 프로젝트의 멤버 중에서 작업을 수행할 담당자를 결정한다.
       List<Member> members = memberDao.findByProjectNo(task.getProjectNo());
       if (members.size() == 0) {
         System.out.println("멤버가 없습니다!");
         return;
       }
 
+      // 멤버 번호를 보관할 컬렉션
       ArrayList<Integer> memberNoList = new ArrayList<>();
 
       System.out.println("멤버들:");
@@ -103,11 +102,11 @@ public class TaskUpdateCommand implements Command {
 
       // 사용자로부터 멤버 번호를 입력 받는다.
       while (true) {
-        int memberNo = Prompt.inputInt("변경할 멤버 번호?(0: 취소) ");
+        int memberNo = Prompt.inputInt("담당자 번호?(0: 취소) ");
         if (memberNo == 0) {
-          System.out.println("작업 변경을 취소합니다.");
+          System.out.println("작업 등록을 취소합니다.");
           return;
-        } else if (projectNoList.contains(memberNo)) {
+        } else if (memberNoList.contains(memberNo)) {
           Member member = new Member();
           member.setNo(memberNo);
           task.setOwner(member);
@@ -122,11 +121,12 @@ public class TaskUpdateCommand implements Command {
         return;
       }
 
-      if (taskDao.Update(task) == 0) {
+      if (taskDao.update(task) == 0) {
         System.out.println("해당 번호의 작업이 존재하지 않습니다.");
       } else {
         System.out.println("작업을 변경하였습니다.");
       }
+
     } catch (Exception e) {
       System.out.println("작업 변경 중 오류 발생!");
       e.printStackTrace();

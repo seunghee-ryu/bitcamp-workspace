@@ -1,11 +1,11 @@
 package com.eomcs.pms.handler;
 
 import java.util.List;
+import java.util.Map;
 import com.eomcs.pms.dao.TaskDao;
 import com.eomcs.pms.domain.Task;
 
 public class TaskListCommand implements Command {
-
   TaskDao taskDao;
 
   public TaskListCommand(TaskDao taskDao) {
@@ -13,7 +13,7 @@ public class TaskListCommand implements Command {
   }
 
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[작업 목록]");
 
     try {
