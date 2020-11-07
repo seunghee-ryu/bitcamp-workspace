@@ -18,6 +18,11 @@ public class LoginCommand implements Command {
   public void execute(Map<String,Object> context) {
     System.out.println("[로그인]");
 
+    if (context.get("loginUser") != null) {
+      System.out.println("로그인 되어 있습니다.");
+      return;
+    }
+
     String email = Prompt.inputString("이메일? ");
     String password = Prompt.inputString("암호? ");
     try {
