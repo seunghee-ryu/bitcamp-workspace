@@ -1,16 +1,16 @@
 package com.eomcs.pms.handler;
 
-import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import com.eomcs.pms.domain.Task;
 import com.eomcs.util.Prompt;
 
 public class TaskAddCommand implements Command {
 
-  List<Task> taskList;
   MemberListCommand memberListCommand;
 
-  public TaskAddCommand(List<Task> list, MemberListCommand memberListCommand) {
-    this.taskList = list;
+  public TaskAddCommand(MemberListCommand memberListCommand) {
     this.memberListCommand = memberListCommand;
   }
 
@@ -38,6 +38,24 @@ public class TaskAddCommand implements Command {
       System.out.println("등록된 회원이 아닙니다.");
     }
 
-    taskList.add(task);
+    try (Connection con = DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
+        Statement stmt = con.createStatement()) {
+
+      String sql = String.format(
+          "insert into pms_task(content,deadline,owner,status)"
+              + " values('%s','%s','%s', %d)",
+              task.getContent(),
+              task.getDeadline(),
+              task.getOwner(),
+              task.getStatus());
+      stmt.executeUpdate(sql);
+
+      System.out.println("작업을 등록했습니다.");
+
+    } catch (Exception e) {
+      System.out.println("작업 등록 중 오류 발생!");
+      e.printStackTrace();
+    }
   }
 }

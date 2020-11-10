@@ -40,9 +40,6 @@ public class ProjectUpdateCommand implements Command {
       project.setEndDate(Prompt.inputDate(String.format(
           "종료일(%s)? ", project.getEndDate())));
 
-      Member loginUser = (Member) context.get("loginUser");
-      project.setOwner(loginUser);
-
       // 프로젝트에 참여할 회원 정보를 담는다.
       List<Member> members = new ArrayList<>();
       while (true) {

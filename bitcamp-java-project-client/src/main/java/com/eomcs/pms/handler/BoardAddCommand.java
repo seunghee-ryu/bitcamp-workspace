@@ -26,10 +26,9 @@ public class BoardAddCommand implements Command {
       board.setTitle(Prompt.inputString("제목? "));
       board.setContent(Prompt.inputString("내용? "));
 
+      // 로그인 사용자 정보 가져오기
       Member loginUser = (Member) context.get("loginUser");
       board.setWriter(loginUser);
-
-
 
       boardDao.insert(board);
       System.out.println("게시글을 등록하였습니다.");

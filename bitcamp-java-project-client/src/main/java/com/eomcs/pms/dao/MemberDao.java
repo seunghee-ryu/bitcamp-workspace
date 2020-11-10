@@ -13,3 +13,7 @@ public interface MemberDao {
   List<Member> findByProjectNo(int projectNo) throws Exception;
   Member findByEmailPassword(String email, String password) throws Exception;
 }
+
+
+
+

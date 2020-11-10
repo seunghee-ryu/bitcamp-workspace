@@ -1,17 +1,17 @@
 package com.eomcs.pms.handler;
 
-import java.sql.Date;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import com.eomcs.pms.domain.Task;
 import com.eomcs.util.Prompt;
 
 public class TaskUpdateCommand implements Command {
 
-  List<Task> taskList;
   MemberListCommand memberListCommand;
 
-  public TaskUpdateCommand(List<Task> list, MemberListCommand memberListCommand) {
-    this.taskList = list;
+  public TaskUpdateCommand(MemberListCommand memberListCommand) {
     this.memberListCommand = memberListCommand;
   }
 
@@ -19,17 +19,40 @@ public class TaskUpdateCommand implements Command {
   public void execute() {
     System.out.println("[작업 변경]");
     int no = Prompt.inputInt("번호? ");
-    Task task = findByNo(no);
 
-    if (task == null) {
-      System.out.println("해당 번호의 작업이 없습니다.");
+    Task task = new Task();
+
+    try (Connection con = DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
+        Statement stmt = con.createStatement()) {
+
+      String sql = String.format(
+          "select content, deadline, owner, status"
+              + " from pms_task"
+              + " where no = %d", no);
+
+      try (ResultSet rs = stmt.executeQuery(sql)) {
+        if (rs.next()) {
+          task.setContent(rs.getString("content"));
+          task.setDeadline(rs.getDate("deadline"));
+          task.setOwner(rs.getString("owner"));
+          task.setStatus(rs.getInt("status"));
+        } else {
+          System.out.println("해당 번호의 작업이 존재하지 않습니다.");
+          return;
+        }
+      }
+    } catch (Exception e) {
+      System.out.println("작업 조회 중 오류 발생!");
+      e.printStackTrace();
       return;
     }
 
-    String content = Prompt.inputString(
-        String.format("내용(%s)? ", task.getContent()));
-    Date deadline = Prompt.inputDate(
-        String.format("마감일(%s)? ", task.getDeadline()));
+    task.setContent(Prompt.inputString(String.format(
+        "내용(%s)? ", task.getContent())));
+    task.setDeadline(Prompt.inputDate(String.format(
+        "마감일(%s)? ", task.getDeadline())));
+
     String stateLabel = null;
     switch (task.getStatus()) {
       case 1:
@@ -41,10 +64,9 @@ public class TaskUpdateCommand implements Command {
       default:
         stateLabel = "신규";
     }
-    int status = Prompt.inputInt(
-        String.format("상태(%s)?\n0: 신규\n1: 진행중\n2: 완료\n> ", stateLabel));
+    task.setStatus(Prompt.inputInt(String.format(
+        "상태(%s)?\n0: 신규\n1: 진행중\n2: 완료\n> ", stateLabel)));
 
-    String owner = null;
     while (true) {
       String name = Prompt.inputString(
           String.format("담당자(%s)?(취소: 빈 문자열) ", task.getOwner()));
@@ -53,7 +75,7 @@ public class TaskUpdateCommand implements Command {
         System.out.println("작업 등록을 취소합니다.");
         return;
       } else if (memberListCommand.findByName(name) != null) {
-        owner = name;
+        task.setOwner(name);
         break;
       }
       System.out.println("등록된 회원이 아닙니다.");
@@ -65,21 +87,32 @@ public class TaskUpdateCommand implements Command {
       return;
     }
 
-    task.setContent(content);
-    task.setDeadline(deadline);
-    task.setStatus(status);
-    task.setOwner(owner);
+    try (Connection con = DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
+        Statement stmt = con.createStatement()) {
 
-    System.out.println("작업을 변경하였습니다.");
-  }
+      String sql = String.format(
+          "update pms_task set"
+              + " content = '%s',"
+              + " deadline = '%s',"
+              + " owner = '%s',"
+              + " status = %d"
+              + " where no = %d",
+              task.getContent(),
+              task.getDeadline(),
+              task.getOwner(),
+              task.getStatus(),
+              no);
+      int count = stmt.executeUpdate(sql);
 
-  private Task findByNo(int no) {
-    for (int i = 0; i < taskList.size(); i++) {
-      Task task = taskList.get(i);
-      if (task.getNo() == no) {
-        return task;
+      if (count == 0) {
+        System.out.println("해당 번호의 작업이 존재하지 않습니다.");
+      } else {
+        System.out.println("작업을 변경하였습니다.");
       }
+    } catch (Exception e) {
+      System.out.println("작업 변경 중 오류 발생!");
+      e.printStackTrace();
     }
-    return null;
   }
 }

@@ -23,26 +23,24 @@ public class BoardDetailCommand implements Command {
               + " where no = %d", no);
 
       try (ResultSet rs = stmt.executeQuery(sql)) {
-        // rs.next() 커서를 하나씩 옮겨가며 이동한다.
         if (rs.next()) {
           System.out.printf("제목: %s\n", rs.getString("title"));
           System.out.printf("내용: %s\n", rs.getString("content"));
           System.out.printf("작성자: %s\n", rs.getString("writer"));
           System.out.printf("등록일: %s\n", rs.getDate("cdt"));
-
-          // 처음 보자마자 조회수 1이 뜨게 한다.
           System.out.printf("조회수: %d\n", rs.getInt("vw_cnt") + 1);
 
-          // 조회수가 증가하도록 sql 문을 실행한다.
-          sql = String.format("update pms_board set vw_cnt = vw_cnt + 1"
-              + " where no = %d", no);
-          stmt.executeUpdate(sql);
+          sql = String.format(
+              "update pms_board set vw_cnt = vw_cnt + 1"
+                  + " where no = %d", no);
+          stmt.executeUpdate(sql); // 조회수 증가
+
         } else {
           System.out.println("해당 번호의 게시물이 존재하지 않습니다.");
         }
       }
     } catch (Exception e) {
-      System.out.println("게시글 상세 조회 중 오류 발생");
+      System.out.println("게시글 조회 중 오류 발생!");
       e.printStackTrace();
     }
   }
