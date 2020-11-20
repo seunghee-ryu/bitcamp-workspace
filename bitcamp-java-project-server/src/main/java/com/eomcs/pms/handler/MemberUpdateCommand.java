@@ -2,24 +2,29 @@ package com.eomcs.pms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
-import java.util.List;
 import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.service.MemberService;
 import com.eomcs.util.Prompt;
 
+@CommandAnno("/member/update")
 public class MemberUpdateCommand implements Command {
 
-  List<Member> memberList;
+  MemberService memberService;
 
-  public MemberUpdateCommand(List<Member> list) {
-    this.memberList = list;
+  public MemberUpdateCommand(MemberService memberService) {
+    this.memberService = memberService;
   }
 
   @Override
-  public void execute(PrintWriter out, BufferedReader in) {
+  public void execute(Request request) {
+
+    PrintWriter out = request.getWriter();
+    BufferedReader in = request.getReader();
+
     try {
       out.println("[회원 변경]");
       int no = Prompt.inputInt("번호? ", out, in);
-      Member member = findByNo(no);
+      Member member = memberService.get(no);
 
       if (member == null) {
         out.println("해당 번호의 회원이 없습니다.");
@@ -42,26 +47,18 @@ public class MemberUpdateCommand implements Command {
         return;
       }
 
-      member.setName(name);
-      member.setEmail(email);
-      member.setPassword(password);
-      member.setPhoto(photo);
-      member.setTel(tel);
+      if (memberService.update(member) == 0) {
+        out.println("해당 번호의 회원이 존재하지 않습니다.");
+      } else {
+        out.println("회원을 변경하였습니다.");
+      }
+
+      memberService.update(member);
 
       out.println("회원을 변경하였습니다.");
 
     } catch (Exception e) {
       out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
     }
-  }
-
-  private Member findByNo(int no) {
-    for (int i = 0; i < memberList.size(); i++) {
-      Member member = memberList.get(i);
-      if (member.getNo() == no) {
-        return member;
-      }
-    }
-    return null;
   }
 }

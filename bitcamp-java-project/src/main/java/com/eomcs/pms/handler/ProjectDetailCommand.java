@@ -1,39 +1,75 @@
 package com.eomcs.pms.handler;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.eomcs.pms.domain.Project;
+import com.eomcs.pms.domain.Task;
+import com.eomcs.pms.service.ProjectService;
+import com.eomcs.pms.service.TaskService;
 import com.eomcs.util.Prompt;
 
 public class ProjectDetailCommand implements Command {
+  ProjectService projectService;
+  TaskService taskService;
+
+  public ProjectDetailCommand(ProjectService projectService, TaskService taskService) {
+    this.projectService = projectService;
+    this.taskService = taskService;
+  }
 
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[프로젝트 상세보기]");
     int no = Prompt.inputInt("번호? ");
 
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-        Statement stmt = con.createStatement()) {
-
-      String sql = String.format(
-          "select title, content, sdt, edt, owner, members"
-              + " from pms_project"
-              + " where no = %d", no);
-
-      try (ResultSet rs = stmt.executeQuery(sql)) {
-        if (rs.next()) {
-          System.out.printf("프로젝트명: %s\n", rs.getString("title"));
-          System.out.printf("내용: %s\n", rs.getString("content"));
-          System.out.printf("기간: %s ~ %s\n", rs.getDate("sdt"), rs.getDate("edt"));
-          System.out.printf("만든이: %s\n", rs.getString("owner"));
-          System.out.printf("팀원: %s\n", rs.getString("members"));
-
-        } else {
-          System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
-        }
+    try {
+      Project project = projectService.get(no);
+      if (project == null) {
+        System.out.println("해당 번호의 프로젝트가 존재하지 않습니다.");
+        return;
       }
+
+      System.out.printf("프로젝트명: %s\n", project.getTitle());
+      System.out.printf("내용: %s\n", project.getContent());
+      System.out.printf("기간: %s ~ %s\n",
+          project.getStartDate(),
+          project.getEndDate());
+      System.out.printf("관리자: %s\n", project.getOwner().getName());
+      System.out.print("팀원: ");
+      project.getMembers().forEach(
+          member -> System.out.print(member.getName() + " "));
+      System.out.println();
+
+      System.out.println("작업:");
+      System.out.println("--------------------------------");
+
+      HashMap<String,Object> map = new HashMap<>();
+      map.put("projectNo", project.getNo());
+
+      List<Task> tasks = taskService.listByProject(no);
+
+      System.out.println("번호, 작업내용, 마감일, 작업자, 상태");
+      for (Task task : tasks) {
+        String stateLabel = null;
+        switch (task.getStatus()) {
+          case 1:
+            stateLabel = "진행중";
+            break;
+          case 2:
+            stateLabel = "완료";
+            break;
+          default:
+            stateLabel = "신규";
+        }
+        System.out.printf("%d, %s, %s, %s, %s\n",
+            task.getNo(),
+            task.getContent(),
+            task.getDeadline(),
+            task.getOwner().getName(),
+            stateLabel);
+      }
+
     } catch (Exception e) {
       System.out.println("프로젝트 조회 중 오류 발생!");
       e.printStackTrace();

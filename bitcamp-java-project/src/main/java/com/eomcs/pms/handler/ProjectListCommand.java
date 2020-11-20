@@ -1,35 +1,43 @@
 package com.eomcs.pms.handler;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.util.List;
+import java.util.Map;
+import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.domain.Project;
+import com.eomcs.pms.service.ProjectService;
 
 public class ProjectListCommand implements Command {
+  ProjectService projectService;
+
+  public ProjectListCommand(ProjectService projectService) {
+    this.projectService = projectService;
+  }
 
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[프로젝트 목록]");
 
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-        Statement stmt = con.createStatement()) {
+    try {
+      // 오류가 나지 않도록 일단 null을 넣어둔다.
+      List<Project> list = projectService.list((String) null);
+      System.out.println("번호, 프로젝트명, 시작일 ~ 종료일, 관리자, 팀원");
 
-      String sql = "select no, title, sdt, edt, owner, members"
-          + " from pms_project"
-          + " order by no desc";
-
-      try (ResultSet rs = stmt.executeQuery(sql)) {
-        System.out.println("번호, 프로젝트명, 시작일 ~ 종료일, 관리자, 팀원");
-        while (rs.next()) {
-          System.out.printf("%d, %s, %s ~ %s, %s, [%s]\n",
-              rs.getInt("no"),
-              rs.getString("title"),
-              rs.getString("sdt"),
-              rs.getString("edt"),
-              rs.getString("owner"),
-              rs.getString("members"));
+      for (Project project : list) {
+        StringBuilder members = new StringBuilder();
+        for (Member member : project.getMembers()) {
+          if (members.length() > 0) {
+            members.append(",");
+          }
+          members.append(member.getName());
         }
+
+        System.out.printf("%d, %s, %s ~ %s, %s, [%s]\n",
+            project.getNo(),
+            project.getTitle(),
+            project.getStartDate(),
+            project.getEndDate(),
+            project.getOwner().getName(),
+            members.toString());
       }
     } catch (Exception e) {
       System.out.println("프로젝트 목록 조회 중 오류 발생!");

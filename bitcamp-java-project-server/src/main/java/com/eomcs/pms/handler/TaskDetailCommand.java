@@ -2,32 +2,37 @@ package com.eomcs.pms.handler;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
-import java.util.List;
 import com.eomcs.pms.domain.Task;
+import com.eomcs.pms.service.TaskService;
 import com.eomcs.util.Prompt;
 
+@CommandAnno("/task/detail")
 public class TaskDetailCommand implements Command {
 
-  List<Task> taskList;
+  TaskService taskService;
 
-  public TaskDetailCommand(List<Task> list) {
-    this.taskList = list;
+  public TaskDetailCommand(TaskService taskService) {
+    this.taskService = taskService;
   }
 
   @Override
-  public void execute(PrintWriter out, BufferedReader in) {
+  public void execute(Request request) {
+
+    PrintWriter out = request.getWriter();
+    BufferedReader in = request.getReader();
+
     try {
-      out.println("[작업 상세보기]");
+      out.printf("[작업 상세보기]\n");
       int no = Prompt.inputInt("번호? ", out, in);
-      Task task = findByNo(no);
+      Task task = taskService.get(no);
 
       if (task == null) {
-        out.println("해당 번호의 작업이 없습니다.");
+        out.printf("해당 번호의 작업이 없습니다.\n");
         return;
       }
 
-      out.printf("내용: %s\n", task.getContent());
-      out.printf("마감일: %s\n", task.getDeadline());
+      out.printf("내용: %s\n", task.getContent(), out, in);
+      out.printf("마감일: %s\n", task.getDeadline(), out, in);
       String stateLabel = null;
       switch (task.getStatus()) {
         case 1:
@@ -40,20 +45,10 @@ public class TaskDetailCommand implements Command {
           stateLabel = "신규";
       }
       out.printf("상태: %s\n", stateLabel);
-      out.printf("담당자: %s\n", task.getOwner());
+      out.printf("담당자: %s\n", task.getOwner().getName());
 
     } catch (Exception e) {
       out.printf("작업 처리 중 오류 발생! - %s\n", e.getMessage());
     }
-  }
-
-  private Task findByNo(int no) {
-    for (int i = 0; i < taskList.size(); i++) {
-      Task task = taskList.get(i);
-      if (task.getNo() == no) {
-        return task;
-      }
-    }
-    return null;
   }
 }

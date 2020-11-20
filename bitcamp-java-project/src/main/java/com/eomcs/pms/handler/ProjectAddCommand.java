@@ -1,76 +1,62 @@
 package com.eomcs.pms.handler;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
+import com.eomcs.pms.service.MemberService;
+import com.eomcs.pms.service.ProjectService;
 import com.eomcs.util.Prompt;
 
 public class ProjectAddCommand implements Command {
 
-  MemberListCommand memberListCommand;
+  ProjectService projectService;
+  MemberService memberService;
 
-  public ProjectAddCommand(MemberListCommand memberListCommand) {
-    this.memberListCommand = memberListCommand;
+  public ProjectAddCommand(ProjectService projectService, MemberService memberService) {
+    this.projectService = projectService;
+    this.memberService = memberService;
   }
 
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[프로젝트 등록]");
 
-    Project project = new Project();
-    project.setTitle(Prompt.inputString("프로젝트명? "));
-    project.setContent(Prompt.inputString("내용? "));
-    project.setStartDate(Prompt.inputDate("시작일? "));
-    project.setEndDate(Prompt.inputDate("종료일? "));
+    try {
+      Project project = new Project();
+      project.setTitle(Prompt.inputString("프로젝트명? "));
+      project.setContent(Prompt.inputString("내용? "));
+      project.setStartDate(Prompt.inputDate("시작일? "));
+      project.setEndDate(Prompt.inputDate("종료일? "));
 
-    while (true) {
-      String name = Prompt.inputString("만든이?(취소: 빈 문자열) ");
+      Member loginUser = (Member) context.get("loginUser");
+      project.setOwner(loginUser);
 
-      if (name.length() == 0) {
-        System.out.println("프로젝트 등록을 취소합니다.");
-        return;
-      } else if (memberListCommand.findByName(name) != null) {
-        project.setOwner(name);
-        break;
-      }
-
-      System.out.println("등록된 회원이 아닙니다.");
-    }
-
-    StringBuilder members = new StringBuilder();
-    while (true) {
-      String name = Prompt.inputString("팀원?(완료: 빈 문자열) ");
-
-      if (name.length() == 0) {
-        break;
-      } else if (memberListCommand.findByName(name) != null) {
-        if (members.length() > 0) {
-          members.append(",");
+      // 프로젝트에 참여할 회원 정보를 담는다.
+      List<Member> members = new ArrayList<>();
+      while (true) {
+        String name = Prompt.inputString("팀원?(완료: 빈 문자열) ");
+        if (name.length() == 0) {
+          break;
+        } else {
+          // Dao가 아니라 Service를 사용하게 한다.
+          List<Member> list = memberService.list(name);
+          if (list == null) {
+            System.out.println("등록된 회원이 아닙니다.");
+            continue;
+          }
+          // 리스트의 0번째에 담는다.
+          members.add(list.get(0));
         }
-        members.append(name);
-      } else {
-        System.out.println("등록된 회원이 아닙니다.");
       }
-    }
-    project.setMembers(members.toString());
 
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-        Statement stmt = con.createStatement()) {
+      // 사용자로부터 입력 받은 멤버 정보를 프로젝트에 저장한다.
+      project.setMembers(members);
 
-      String sql = String.format(
-          "insert into pms_project(title,content,sdt,edt,owner,members)"
-              + " values('%s','%s','%s','%s','%s','%s')",
-              project.getTitle(),
-              project.getContent(),
-              project.getStartDate(),
-              project.getEndDate(),
-              project.getOwner(),
-              project.getMembers());
-      stmt.executeUpdate(sql);
-
-      System.out.println("프로젝트를 등록하였습니다.");
+      // Dao가 아니라 Service를 사용하게 한다.
+      projectService.add(project);
+      System.out.println("프로젝트가 등록되었습니다!");
 
     } catch (Exception e) {
       System.out.println("프로젝트 등록 중 오류 발생!");

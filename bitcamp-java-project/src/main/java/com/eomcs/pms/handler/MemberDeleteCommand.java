@@ -1,14 +1,18 @@
 package com.eomcs.pms.handler;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.util.Map;
+import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.util.Prompt;
 
 public class MemberDeleteCommand implements Command {
+  MemberDao memberDao;
+
+  public MemberDeleteCommand(MemberDao memberDao) {
+    this.memberDao = memberDao;
+  }
 
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[회원 삭제]");
     int no = Prompt.inputInt("번호? ");
 
@@ -18,13 +22,8 @@ public class MemberDeleteCommand implements Command {
       return;
     }
 
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-        Statement stmt = con.createStatement()) {
-
-      String sql = String.format("delete from pms_member where no=%d", no);
-      int count = stmt.executeUpdate(sql);
-      if (count == 0) {
+    try {
+      if (memberDao.delete(no) == 0) {
         System.out.println("해당 번호의 회원이 존재하지 않습니다.");
       } else {
         System.out.println("회원을 삭제하였습니다.");

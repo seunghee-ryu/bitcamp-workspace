@@ -24,8 +24,10 @@ repositories {
 }
 
 dependencies {
+    // Mybatis 퍼시스턴스 프레임워크
+    implementation 'org.mybatis:mybatis:3.5.6'
 
-implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.0'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.0'
 
     //json
     implementation 'com.google.code.gson:gson:2.8.6'

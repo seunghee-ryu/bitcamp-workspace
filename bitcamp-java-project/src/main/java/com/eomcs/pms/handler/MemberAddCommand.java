@@ -1,15 +1,20 @@
 package com.eomcs.pms.handler;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.util.Map;
 import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.service.MemberService;
 import com.eomcs.util.Prompt;
 
 public class MemberAddCommand implements Command {
 
+  MemberService memberService;
+
+  public MemberAddCommand(MemberService memberService) {
+    this.memberService = memberService;
+  }
+
   @Override
-  public void execute() {
+  public void execute(Map<String,Object> context) {
     System.out.println("[회원 등록]");
 
     Member member = new Member();
@@ -19,20 +24,8 @@ public class MemberAddCommand implements Command {
     member.setPhoto(Prompt.inputString("사진? "));
     member.setTel(Prompt.inputString("전화? "));
 
-    try (Connection con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-        Statement stmt = con.createStatement()) {
-
-      String sql = String.format(
-          "insert into pms_member(name,email,password,photo,tel)"
-              + " values('%s','%s','%s','%s','%s')",
-              member.getName(),
-              member.getEmail(),
-              member.getPassword(),
-              member.getPhoto(),
-              member.getTel());
-      stmt.executeUpdate(sql);
-
+    try {
+      memberDao.insert(member);
       System.out.println("회원을 등록하였습니다.");
 
     } catch (Exception e) {
