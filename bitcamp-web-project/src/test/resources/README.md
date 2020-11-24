@@ -1,1 +1,1 @@
-# java 단위 테스트 관련 설정 파일 등을 두는 폴더
+# src/test/resources
