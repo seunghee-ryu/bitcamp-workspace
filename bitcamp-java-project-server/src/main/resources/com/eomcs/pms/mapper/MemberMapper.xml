@@ -20,6 +20,7 @@
       name, 
       email, 
       tel, 
+      photo,
       cdt
     from 
       pms_member

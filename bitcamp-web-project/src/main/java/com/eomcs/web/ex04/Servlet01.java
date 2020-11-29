@@ -18,10 +18,10 @@ public class Servlet01 extends GenericServlet {
   public void service(ServletRequest req, ServletResponse res)
       throws ServletException, IOException {
 
-    // GET 요청
-    // - 웹 브라우저에 URL을 입력한 후 엔터를 치면 GET 요청을 보낸다.
-    // - 웹 페이지에서 링크를 클릭하면(자바스크립트 처리하지 않은 상태) GET 요청을 보낸다.
-    // - 웹 페이지의 폼(method='GET' 일 때)에서 전송 버튼을 클릭하면 GET 요청을 보낸다.
+    //     GET 요청
+    //     - 웹 브라우저에 URL을 입력한 후 엔터를 치면 GET 요청을 보낸다.
+    //     - 웹 페이지에서 링크를 클릭하면(자바스크립트 처리하지 않은 상태) GET 요청을 보낸다.
+    //     - 웹 페이지의 폼(method='GET' 일 때)에서 전송 버튼을 클릭하면 GET 요청을 보낸다.
     //
     // 테스트
     // - http://localhost:8080/java-web/ex04/test01.html 실행
