@@ -24,7 +24,6 @@ import com.eomcs.pms.service.ProjectService;
 import com.eomcs.pms.service.TaskService;
 import com.eomcs.util.SqlSessionFactoryProxy;
 
-// 게시물, 회원, 프로젝트, 작업 데이터를 파일에서 로딩하고 파일로 저장하는 일을 한다.
 @WebListener
 public class DataHandlerListener implements ServletContextListener {
 
@@ -50,8 +49,8 @@ public class DataHandlerListener implements ServletContextListener {
       TaskService taskService = new DefaultTaskService(taskDao);
 
       // 다른 객체가 사용할 수 있도록 context 맵 보관소에 저장해둔다.
-
       ServletContext ctx = sce.getServletContext();
+
       ctx.setAttribute("boardService", boardService);
       ctx.setAttribute("memberService", memberService);
       ctx.setAttribute("projectService", projectService);
@@ -62,4 +61,5 @@ public class DataHandlerListener implements ServletContextListener {
       e.printStackTrace();
     }
   }
+
 }

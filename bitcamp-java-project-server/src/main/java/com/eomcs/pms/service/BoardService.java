@@ -10,5 +10,4 @@ public interface BoardService {
   List<Board> list(String keyword) throws Exception;
   Board get(int no) throws Exception;
   int update(Board board) throws Exception;
-
 }
