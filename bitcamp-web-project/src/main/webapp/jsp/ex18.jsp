@@ -22,6 +22,11 @@
 <jsp:useBean id="list"
     type="java.util.List<String>"
     class="java.util.ArrayList" scope="page"/>
+    
+<%--
+<jsp:useBean id="list"
+    class="java.util.ArrayList" scope="page"/>
+ --%>
 <%-- 자바코드로 표현해보면,
   java.util.List<String> list = 
      (java.util.List<String>) pageContext.getAttribute("list");
@@ -38,11 +43,24 @@ list.add("홍길동");
 list.add("임꺽정");
 list.add("유관순");
 list.add("안중근");
+%>
 
+<%--
+// Arraylist에 제네릭을 적용하지 않으면 다음과 같이
+// 어떤 타입이라도 지정할 수 있다.
+list.add(new Integer(100));
+list.add(new com.eomcs.web.vo.Board());
+
+for (Object obj : list) {
+  out.println(obj + "<br>");
+}
+--%>
+
+<%--
 for (String n : list) {
   out.println(n + "<br>");
 }
-%>
+--%>
 
 </body>
 </html>

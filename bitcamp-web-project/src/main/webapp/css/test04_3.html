@@ -22,22 +22,33 @@
    */
 
   div {
-    border: 1px solid black;
-    margin: 10px;
+    border: 1px solid orange;
+    margin: 20px;
   }
 
 
   /* specificity = 100 + 1 + 100 = 201 */
+  
   #d2 div#d3 {
-    background-color: red;
+    background-color: hsla(120, 100%, 25%, 0.3);
     color: white;
   }
+  
+  #d1 div#d2 {
+  background-color: hsla(120, 100%, 25%, 0.3);
+  color: white;
+  padding:10px;
+  }
+  
 
   /* specificity = 100 + 100 = 200 */
   #d2 #d3 {
-    background-color: blue;
+    background-color: white;
   }
 
+  #d0 #d1 {
+    background-color: hsla(120, 100%, 25%, 0.3);
+  }
 
   </style>
 </head>

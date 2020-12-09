@@ -13,7 +13,7 @@
 <h1>JSP 액션 태그 - jsp:useBean (계속)</h1>
 <%-- 보관소에 저장된 객체 꺼내기 --%>
 <%
-application.setAttribute("s1", "홍길동");
+application.setAttribute("s1", null); //"홍길동");
 session.setAttribute("s2", "임꺽정");
 request.setAttribute("s3", "안중근");
 pageContext.setAttribute("s4", "윤봉길");

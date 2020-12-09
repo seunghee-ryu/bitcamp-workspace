@@ -11,9 +11,9 @@
 </head>
 <body>
 <h1>지시문(directive element) - include</h1>
-<%@ include file="./ex08_header.txt"%>
+<header>머리말</header>
 <p>테스트</p>
-<%@ include file="./ex08_footer.txt" %>
+<footer>꼬리말</footer>
 </body>
 </html>
 <%-- 

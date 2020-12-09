@@ -29,7 +29,7 @@ pageContext.setAttribute("list", names);
   java.util.List<String> list = 
     (java.util.List<String>) pageContext.getAttribute("list");
  --%>
-
+ 
 <%
 for (String n : list) {
   out.println(n + "<br>");

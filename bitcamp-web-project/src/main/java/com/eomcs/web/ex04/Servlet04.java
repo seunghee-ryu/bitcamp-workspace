@@ -18,9 +18,9 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 // 멀티파트 형식으로 전송된 데이터는
-// 별도의 처리과정이 필요한다.
+// 별도의 처리과정이 필요하다.
 // 이 일을 대신 해주는 라이브러리가 있다.
-// => Apache 재단에게 제공하는 fileupload 라이브러리이다.
+// => Apache 소프트웨어 재단(ASF)에게 제공하는 fileupload 라이브러리이다.
 // => search.maven.org 에서 'commons-fileupload' 검색한다.
 // => 라이브러리 정보를 build.gradle 에 추가한다.
 // => 'gradle eclipse'를 실행하여 라이브러리를 가져온다.
@@ -106,7 +106,7 @@ public class Servlet04 extends GenericServlet {
           // 파트의 데이터가 일반 데이터라면
           paramMap.put(part.getFieldName(), // 클라이언트가 보낸 파라미터 이름
               part.getString("UTF-8") // 파라미터의 값. 값 꺼낼 때 인코딩을 지정해야 한다.
-          );
+              );
 
         } else {
           // 파트의 데이터가 파일이라면
@@ -127,7 +127,7 @@ public class Servlet04 extends GenericServlet {
 
           paramMap.put(part.getFieldName(), // 클라이언트가 보낸 파라미터 이름
               filename // 파일 이름
-          );
+              );
         }
       }
 

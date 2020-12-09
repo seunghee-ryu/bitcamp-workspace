@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-// @WebFilter("/ex06/s5")
+//@WebFilter("/ex05/*")
 public class Filter03 implements Filter {
 
   @Override
@@ -19,6 +19,8 @@ public class Filter03 implements Filter {
     System.out.printf("ex06.Filter03 : encoding=%s\n",
         request.getServletContext().getInitParameter("encoding"));
 
+    System.out.printf("ex06.Filter03 : aaa=%s\n",
+        request.getServletContext().getInitParameter("aaa"));
     chain.doFilter(request, response);
   }
 }

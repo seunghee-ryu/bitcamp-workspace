@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import net.coobird.thumbnailator.ThumbnailParameter;
 import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 import net.coobird.thumbnailator.name.Rename;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
@@ -72,29 +73,43 @@ public class Servlet08 extends GenericServlet {
     // Thumbnails.of(this.uploadDir + "/" + filename).size(20, 20).outputFormat("jpg")
     // .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 
-    Thumbnails.of(this.uploadDir + "/" + filename)//
-        .size(20, 20)//
-        .outputFormat("jpg")//
-        .toFiles(new Rename() {
-          @Override
-          public String apply(String name, ThumbnailParameter param) {
-            return name + "_20x20";
-          }
-        });
+    Thumbnails.of(this.uploadDir + "/" + filename)
+    .size(20, 20).crop(Positions.CENTER)
+    .outputFormat("jpg")
+    .toFiles(new Rename() {
+      @Override
+      public String apply(String name, ThumbnailParameter param) {
+        return name + "_20x20";
+      }
+    });
 
-    Thumbnails.of(this.uploadDir + "/" + filename)//
-        .size(80, 80)//
-        .outputFormat("jpg") //
-        .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+    Thumbnails.of(this.uploadDir + "/" + filename)
+    .size(80, 80).crop(Positions.CENTER)
+    .outputFormat("jpg").toFiles(new Rename() {
+      @Override
+      public String apply(String name, ThumbnailParameter param) {
+        return name + "_80x80";
+      }
+    });
+    // .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+    // 이렇게 하면 같은 이름으로 중복이 일어나서 파일 저장이 안 될 수 있다.
 
-    Thumbnails.of(this.uploadDir + "/" + filename)//
-        .size(160, 160) //
-        .outputFormat("jpg") //
-        .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+    Thumbnails.of(this.uploadDir + "/" + filename)
+    .size(160, 160).crop(Positions.CENTER)
+    .outputFormat("jpg").toFiles(new Rename() {
+      @Override
+      public String apply(String name, ThumbnailParameter param) {
+        return name + "_160x160";
+      }
+    });
+    //.toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 
+    // 원본 파일을 가져와서 작게 만드는 것은 하지 않는다.
     out.printf("사진=%s<br>\n", filename);
     out.printf("<img src='../upload/%s_20x20.jpg'><br>\n", filename);
+    out.printf("<img src='../upload/%s_80x80.jpg'><br>\n", filename);
     out.printf("<img src='../upload/%s' height='80'><br>\n", filename);
+    out.printf("<img src='../upload/%s_160x160.jpg'><br>\n", filename);
     out.printf("<img src='../upload/%s'><br>\n", filename);
     out.println("</body></html>");
   }
