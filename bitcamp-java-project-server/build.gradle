@@ -11,11 +11,14 @@ repositories {
 
 dependencies {
 
-  // Thumbnailator 썸네일 생성 라이브러리
-  implementation 'net.coobird:thumbnailator:0.4.13'
+    // Spring WebMVC 프레임워크
+    implementation 'org.springframework:spring-webmvc:5.3.2'
+
+    // Thumbnailator 썸네일 생성 라이브러리
+    implementation 'net.coobird:thumbnailator:0.4.13'
   
-  // Apache의 파일업로드 처리 라이브러리
-  implementation 'commons-fileupload:commons-fileupload:1.4'
+    // Apache의 파일업로드 처리 라이브러리
+    implementation 'commons-fileupload:commons-fileupload:1.4'
 
     // 서블릿api library
     compile 'javax.servlet:javax.servlet-api:4.0.1'
