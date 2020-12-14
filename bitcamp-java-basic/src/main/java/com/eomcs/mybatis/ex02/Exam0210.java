@@ -24,7 +24,7 @@ public class Exam0210 {
     // Map 객체에 담아 전달하라!
 
     // 예) 특정 번호를 초과하는 게시물을 가져온다.
-    List<Board> list = sqlSession.selectList(//
+    List<Board> list = sqlSession.selectList(
         "BoardMapper.selectBoard1", 20);
 
     for (Board board : list) {

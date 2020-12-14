@@ -42,7 +42,7 @@ public class Exam0230 {
 
     keyScan.close();
 
-    params.put("no", 12); // 12번 게시글 변경
+    params.put("no", 15); // 1번 게시글 변경
 
     int count = sqlSession.update("BoardMapper.update4", params);
     System.out.println(count);

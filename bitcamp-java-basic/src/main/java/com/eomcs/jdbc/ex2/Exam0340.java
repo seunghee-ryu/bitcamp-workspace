@@ -1,3 +1,4 @@
+// 게시판 관리 - 변경 + PreparedStatement 적용
 package com.eomcs.jdbc.ex2;
 
 import java.sql.Connection;
@@ -6,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.util.Scanner;
 
 public class Exam0340 {
+
   public static void main(String[] args) throws Exception {
     String no = null;
     String title = null;
@@ -20,35 +22,27 @@ public class Exam0340 {
 
       System.out.print("내용? ");
       contents = keyScan.nextLine();
-
-      System.out.print("입력하시겠습니까?(Y/n) ");
-      String input = keyScan.nextLine();
-
-      if (!input.equalsIgnoreCase("y") && input.length() != 0) {
-        System.out.println("등록을 취소 하였습니다.");
-        return;
-      }
     }
 
-    try (Connection con = DriverManager.getConnection(
+    try (Connection con = DriverManager.getConnection( //
         "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-        PreparedStatement stmt = con.prepareStatement(
-            "update x_board set title = ?, contents = ? where board_id = ?"
-            );) {
+        PreparedStatement stmt = con.prepareStatement( //
+            "update x_board set title = ?, contents = ? where board_id = ?")) {
 
       stmt.setString(1, title);
       stmt.setString(2, contents);
       stmt.setString(3, no);
+      stmt.executeUpdate();
 
       int count = stmt.executeUpdate();
 
       if (count == 0) {
         System.out.println("해당 번호의 게시물이 존재하지 않습니다.");
       } else {
-
-        System.out.printf("변경하였습니다.");
+        System.out.println("변경하였습니다.");
       }
     }
-
   }
 }
+
+

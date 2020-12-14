@@ -9,8 +9,8 @@ import com.eomcs.algorithm.data_structure.linkedlist.MyLinkedList;
 //
 // 테스트2: MyQueueTest2
 // 5) Queue.clone() 오버라이딩 : deep copy
-// 
-public class MyQueue05 extends MyLinkedList implements Cloneable {
+//
+public class MyQueue05 extends MyLinkedList {
 
   public boolean offer(Object e) {
     return add(e);
@@ -30,8 +30,14 @@ public class MyQueue05 extends MyLinkedList implements Cloneable {
     return get(0);
   }
 
+  // 
   @Override
   public MyQueue05 clone() throws CloneNotSupportedException {
+    // => MyQueue는 MyLinkedList를 상속 받았고,
+    //    MyLinkedList의 경우 노드와 노드 사이를 연결해야 하기 때문에 
+    //    단순히 'shallow copy'를 수행해서는 안된다.
+    // => 다음과 같이 새 Queue를 만들고, 
+    //    기존 Queue에 저장된 값을 꺼내서 새 Queue에 저장해야 한다.
     MyQueue05 newQueue = new MyQueue05();
     Object[] values = this.toArray();
     for (Object value : values) {
@@ -39,11 +45,4 @@ public class MyQueue05 extends MyLinkedList implements Cloneable {
     }
     return newQueue;
   }
-
 }
-
-
-
-
-
-

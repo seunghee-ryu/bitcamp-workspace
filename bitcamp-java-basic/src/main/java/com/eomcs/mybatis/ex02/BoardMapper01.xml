@@ -20,7 +20,7 @@
   <!-- select 태그
        id : SQL문을 찾을 때 사용할 식별자이다.
        resultType : select 결과를 저장할 클래스이름이나 별명이다. 
-       클래스이름의 경우 반드시 
+       클래스이름을 경우 반드시 
        fully-qualified class name(패키지명을 포함한 클래스명)을 사용하라! 
   -->
   

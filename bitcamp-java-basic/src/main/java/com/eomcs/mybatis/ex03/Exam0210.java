@@ -37,11 +37,11 @@ public class Exam0210 {
     // SQL 매퍼에 여러 개의 파라미터 값을 넘길 때 주로 Map을 사용한다.
     HashMap<String, Object> params = new HashMap<>();
     if (item.equals("1")) {
-      params.put("item", item); //"no");
+      params.put("item", "no");
     } else if (item.equals("2")) {
-      params.put("item", item); //"title");
+      params.put("item", "title");
     } else {
-      params.put("item", item); //"content");
+      params.put("item", "content");
     }
     params.put("keyword", keyword);
 

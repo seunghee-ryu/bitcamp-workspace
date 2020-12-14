@@ -9,10 +9,11 @@
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--page controller 는 이 패키지의 모든 클래스를 찾아서
-        스프링의 특별한 애노테이션이 붙은 클래스에 대해
-        객체를 생성하고 관리할 것이다.
-    -->
-    <context:component-scan base-package="com.eomcs"/>
+  <!-- 
+       프론트 컨트롤러는 이 패키지의 모든 클래스를 찾아서 
+       스프링의 특별한 애노테이션이 붙은 클래스에 대해
+       객체를 생성하고 관리할 것이다.
+   -->
+  <context:component-scan base-package="com.eomcs"/>
 
 </beans>

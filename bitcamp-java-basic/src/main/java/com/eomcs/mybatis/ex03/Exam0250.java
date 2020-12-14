@@ -38,7 +38,6 @@ public class Exam0250 {
     }
     params.put("noList", noList);
 
-
     keyScan.close();
 
     List<Board> list = sqlSession.selectList("BoardMapper.select23", params);

@@ -166,10 +166,10 @@
     from x_board
     where
     <choose>
-	    <when test="item == 'itme'">
+	    <when test="item == 'no'">
 	      board_id = #{keyword}
 	    </when>
-	    <when test="item == 'title'">
+	    <when test='item == "title"'>
 	      title like concat('%', #{keyword}, '%')
 	    </when>
 	    <otherwise>
@@ -240,10 +240,18 @@
     from x_board
     <where>
       <foreach collection="noList" item="no">
-      <if test="no != ''">
+        <if test="no != ''">
         or board_id = #{no}
         </if>
       </foreach>
+      <!-- 자바코드:
+      ArrayList<Object> list = map.get("noList");
+      for (Object no : list) {
+        if (!no.equals("")) {
+          sql += " or board_id = " + no;
+        }
+      }
+       -->
     </where>
   </select>
   <select id="select24" resultMap="BoardMap" parameterType="map">
@@ -251,8 +259,8 @@
       board_id,
       title, 
       contents, 
-      created_date, <!-- comments xml, html 주석이라 sql 문을 만들때는 사라진다. -->
-      view_count /* comments sql 주석이기 때문에 포함되어 DB로 옮겨진다. */
+      created_date, <!-- comments -->
+      view_count /* comments */
     from x_board
     <where>
       board_id in /* (1, 2, 11, 12) */

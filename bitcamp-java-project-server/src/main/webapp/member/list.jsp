@@ -18,7 +18,7 @@
 <tr>
   <td>${m.no}</td>
   <td><a href='detail?no=${m.no}'><img src='../../upload/${m.photo}_30x30.jpg' alt='사진'>${m.name}</a></td>
-  <td>${m.email}</td>
+  <td>${m.email}></td>
   <td>${m.tel}</td>
   <td>${m.registeredDate}</td>
 </tr>

@@ -11,6 +11,9 @@ repositories {
 
 dependencies {
 
+    // Spring IOC 컨테이너
+    implementation 'org.springframework:spring-context:5.3.2'
+
     // Spring WebMVC 프레임워크
     implementation 'org.springframework:spring-webmvc:5.3.2'
 

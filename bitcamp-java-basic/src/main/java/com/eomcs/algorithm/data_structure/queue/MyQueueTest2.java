@@ -7,19 +7,18 @@ public class MyQueueTest2 {
     queue.offer("bbb");
     queue.offer("ccc");
     queue.offer("ddd");
-    queue.offer("eee"); // aaa,bbb,ccc,ddd,eee
+    queue.offer("eee");
     print(queue);
+    System.out.println("--------------------------");
 
     MyQueue queue2 = queue.clone();
-    print(queue2); // aaa,bbb,ccc,ddd,eee
+    queue2.poll();
+    queue2.poll();
+    print(queue2);
+    System.out.println("--------------------------");
 
-    System.out.println(queue2.poll());//aaa
-    System.out.println(queue2.poll());//bbb
-    System.out.println(queue2.poll());//ccc
-    print(queue2); // ddd,eee
-
-    System.out.println("--------------------");
     print(queue);
+    System.out.println("--------------------------");
   }
 
   static void print(MyQueue queue) {

@@ -1,21 +1,51 @@
-// 주제: 부동소수점을 저장하는 메모리의 크기
-
+// indexOf()에서 객체를 찾을 때 equals()로 비교하여 찾는다.
 package com.eomcs.basic.ex03;
 
+import java.util.ArrayList;
 
-class Exam0320 // 클래스 선언(class declaration)
-{ // 클래스 정의(class definition)
-    public static void main(String[] args) // 메서드 선언(method declaration)
-    { // 메서드 정의(method definition)
-        
-        // 부동소수점 리터럴은 기본으로 8바이트 크기를 갖는다.
-        System.out.println(3.14);
-        System.out.println(3.14D); // D 또는 d를 붙여도 된다.
-        System.out.println(3.14d);
+public class Exam0320 {
+  // equals()를 오버라이딩 하지 않았다.
+  static class Member {
+    String name;
+    int age;
 
-        // 뒤에 F 나 f를 붙이면 4바이트 메모리에 저장한다.
-        System.out.println(3.14F);
-        System.out.println(3.14f);
-
+    public Member(String name, int age) {
+      this.name = name;
+      this.age = age;
     }
+
+    @Override
+    public String toString() {
+      return String.format("[%s,%d]", this.name, this.age);
+    }
+  }
+
+  public static void main(String[] args) {
+    Member s1 = new Member("홍길동", 20);
+    Member s2 = new Member("임꺽정", 30);
+    Member s3 = new Member("유관순", 16);
+    Member s4 = new Member("임꺽정", 30);
+
+    ArrayList list = new ArrayList();
+    list.add(s1);
+    list.add(s2);
+    list.add(s3);
+    print(list);
+
+    System.out.println(list.indexOf(s4)); // -1
+    // indexOf()는 equals()를 사용하여 객체가 같은지 비교한다.
+    // Member 클래스는 equals()를 오버라이딩 하지 않았다.
+    // 따라서 같은 값을 갖더라도 인스턴스가 다르면
+    // equals()의 검사 결과도 false가 될 것이다.
+    System.out.println(s2.equals(s4)); // false
+  }
+
+  static void print(ArrayList list) {
+    for (int i = 0; i < list.size(); i++) {
+      System.out.print(list.get(i) + ", ");
+    }
+    System.out.println();
+  }
 }
+
+
