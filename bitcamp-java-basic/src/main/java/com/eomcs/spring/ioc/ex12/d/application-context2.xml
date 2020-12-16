@@ -5,9 +5,9 @@
     xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
+        https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd
+        https://www.springframework.org/schema/context/spring-context.xsd
         http://mybatis.org/schema/mybatis-spring
         http://mybatis.org/schema/mybatis-spring.xsd">
     
@@ -19,21 +19,13 @@
       <property name="mapperLocations" 
                 value="classpath*:com/eomcs/spring/ioc/ex12/d/*Mapper.xml" />  
       
-      <!-- 도메인 클래스의 패키지를 지정한다.
-           그러면 해당 패키지의 전체 클래스에 대해 별명이 부여된다. -->
-      <!--  
+
       <property name="typeAliasesPackage" 
-                value="com.eomcs.spring.ioc.ex12"/>
-      -->
+                value="com.eomcs.pms.domain"/>
       
-      <!-- 도메인 클래스를 낱개로 지정할 때는 
-          다음의 프로퍼티를 설정한다. -->   
-      <property name="typeAliases" 
-                value="com.eomcs.spring.ioc.ex12.Board"/>
     </bean>
     
-	<bean id="dataSource" 
-	      class="org.apache.commons.dbcp.BasicDataSource" 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
 	      destroy-method="close">
 	    <property name="driverClassName" value="${jdbc.driver}" />
 	    <property name="url" value="${jdbc.url}" />
@@ -41,7 +33,7 @@
 	    <property name="password" value="${jdbc.password}" />
 	</bean>
 	
-    <context:property-placeholder 
+  <context:property-placeholder 
         location="com/eomcs/spring/ioc/ex12/jdbc.properties"/>	
         
 <!-- DAO 구현체를 자동으로 만들어 주는 객체를 준비 II
